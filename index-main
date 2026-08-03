@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4º Período — Central de Estudos</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#ffffff; --ink:#1c2530; --mut:#5b6b7b; --line:#e3e9ef;
+    --accent:#0f9d78; --accent2:#0b7f61; --shadow:0 1px 3px rgba(20,40,60,.07),0 6px 22px rgba(20,40,60,.06);
+    --radius:16px;
+  }
+  html[data-theme="dark"]{
+    --bg:#0f151b; --card:#161f28; --ink:#e7eef4; --mut:#9fb0bf; --line:#26333f;
+    --accent:#2fd0a2; --accent2:#22b98d; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 26px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:30px 18px 80px}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  h1{font-size:1.7rem;margin:0 0 4px;letter-spacing:-.5px}
+  .sub{color:var(--mut);font-size:.95rem;margin:0}
+  .theme-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:.82rem;cursor:pointer;box-shadow:var(--shadow)}
+  .intro{color:var(--mut);font-size:.95rem;margin:20px 2px 22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 18px;box-shadow:var(--shadow);text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:6px;position:relative;transition:transform .15s, box-shadow .15s;min-height:118px}
+  a.card:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(20,40,60,.1),0 14px 34px rgba(20,40,60,.1)}
+  a.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:var(--radius) 0 0 var(--radius);background:var(--accent)}
+  .card .emoji{font-size:1.7rem;line-height:1}
+  .card .nm{font-weight:700;font-size:1.05rem}
+  .card .meta{font-size:.83rem;color:var(--mut);margin-top:auto}
+  .card.soon{opacity:.6}
+  .card.soon .badge{position:absolute;top:14px;right:14px;font-size:.64rem;font-weight:800;letter-spacing:.04em;color:var(--mut);background:var(--bg);border:1px solid var(--line);padding:3px 8px;border-radius:99px}
+  .go{font-size:.82rem;font-weight:700;color:var(--accent2);margin-top:auto}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:.82rem;color:var(--mut)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <h1>📚 4º Período — Central de Estudos</h1>
+      <p class="sub">Medicina UNIR | T24</p>
+    </div>
+    <button class="theme-btn" id="themeBtn">🌙 Tema</button>
+  </div>
+
+  <p class="intro">Materiais de estudo do 4º período, organizados por matéria. Escolha uma para abrir. As demais entram conforme forem ficando prontas.</p>
+
+  <div class="grid">
+
+    <a class="card" href="farmacologia/">
+      <span class="emoji">💊</span>
+      <span class="nm">Farmacologia I</span>
+      <span class="meta">Roadmap do conteúdo</span>
+      <span class="go">Abrir →</span>
+    </a>
+
+    <div class="card soon"><span class="badge">EM BREVE</span>
+      <span class="emoji">🦠</span><span class="nm">Introdução às DIP</span>
+      <span class="meta">Doenças Infecciosas e Parasitárias</span></div>
+
+    <div class="card soon"><span class="badge">EM BREVE</span>
+      <span class="emoji">📊</span><span class="nm">Epidemiologia</span>
+      <span class="meta">—</span></div>
+
+    <div class="card soon"><span class="badge">EM BREVE</span>
+      <span class="emoji">🧬</span><span class="nm">Genética Humana</span>
+      <span class="meta">—</span></div>
+
+    <div class="card soon"><span class="badge">EM BREVE</span>
+      <span class="emoji">🔬</span><span class="nm">Histofisiologia III</span>
+      <span class="meta">—</span></div>
+
+    <div class="card soon"><span class="badge">EM BREVE</span>
+      <span class="emoji">🩺</span><span class="nm">Semiologia II</span>
+      <span class="meta">—</span></div>
+
+    <div class="card soon"><span class="badge">EM BREVE</span>
+      <span class="emoji">🔬</span><span class="nm">Patologia Geral</span>
+      <span class="meta">—</span></div>
+
+  </div>
+
+  <footer>
+    Central de estudos · 4º Período · T24. Cada matéria abre suas próprias ferramentas de estudo.
+  </footer>
+
+</div>
+<script>
+  function applyTheme(x){document.documentElement.setAttribute('data-theme',x);document.getElementById('themeBtn').textContent=x==='dark'?'☀️ Tema':'🌙 Tema';}
+  let theme=(()=>{try{return localStorage.getItem('p4_theme')}catch(e){return null}})()||'light';
+  applyTheme(theme);
+  document.getElementById('themeBtn').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';applyTheme(theme);try{localStorage.setItem('p4_theme',theme)}catch(e){}});
+</script>
+</body>
+</html>
