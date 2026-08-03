@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap do Conteúdo — Farmacologia I</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --card:#ffffff; --ink:#1c2530; --mut:#5b6b7b; --line:#e3e9ef;
+    --accent:#0f9d78; --accent2:#0b7f61; --shadow:0 1px 3px rgba(20,40,60,.07),0 6px 22px rgba(20,40,60,.06);
+    --definir:#0f9d78; --explicar:#2f7bd6; --aplicar:#7c5cd0; --caso:#e0475f;
+    --radius:16px;
+  }
+  html[data-theme="dark"]{
+    --bg:#0f151b; --card:#161f28; --ink:#e7eef4; --mut:#9fb0bf; --line:#26333f;
+    --accent:#2fd0a2; --accent2:#22b98d; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 26px rgba(0,0,0,.35);
+    --definir:#2fd0a2; --explicar:#4f9be6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:940px;margin:0 auto;padding:26px 18px 80px}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  h1{font-size:1.5rem;margin:0 0 4px;letter-spacing:-.4px}
+  .sub{color:var(--mut);font-size:.92rem;margin:0}
+  .theme-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:.82rem;cursor:pointer;box-shadow:var(--shadow)}
+  .intro{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px 18px;box-shadow:var(--shadow);margin:20px 0 8px;font-size:.9rem;color:var(--mut)}
+  .intro b{color:var(--ink)}
+  .prog{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);margin:14px 0 8px}
+  .prog .lbl{display:flex;justify-content:space-between;font-size:.86rem;color:var(--mut);margin-bottom:8px}
+  .bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden}
+  .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--mut);margin:14px 2px 4px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:99px;display:inline-block}
+  /* módulo */
+  h2.mod{font-size:1.12rem;margin:30px 0 6px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  h2.mod .mnum{font-size:.8rem;font-weight:800;color:#fff;background:var(--accent);padding:5px 11px;border-radius:9px;letter-spacing:.03em}
+  h2.mod .src{font-size:.72rem;font-weight:600;color:var(--mut);background:var(--card);border:1px solid var(--line);padding:3px 9px;border-radius:99px}
+  /* tópico */
+  .topic{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:11px 0;box-shadow:var(--shadow);overflow:hidden}
+  .topic.full{border-color:rgba(15,157,120,.5);box-shadow:0 0 0 2px rgba(15,157,120,.14),var(--shadow)}
+  .topic > summary{list-style:none;cursor:pointer;padding:14px 17px;display:flex;align-items:center;gap:12px;user-select:none}
+  .topic > summary::-webkit-details-marker{display:none}
+  .topic .tid{font-size:.72rem;font-weight:800;color:var(--mut);background:var(--bg);border:1px solid var(--line);padding:3px 8px;border-radius:7px;white-space:nowrap}
+  .topic .tt{font-weight:700;font-size:.98rem;flex:1;min-width:0}
+  .pips{display:flex;gap:4px;margin-left:auto}
+  .pip{width:9px;height:9px;border-radius:99px;background:var(--line);transition:.2s}
+  .pip.on-d{background:var(--definir)} .pip.on-e{background:var(--explicar)} .pip.on-a{background:var(--aplicar)}
+  .tcount{font-size:.72rem;color:var(--mut);white-space:nowrap;min-width:38px;text-align:right}
+  .caret{color:var(--mut);transition:transform .2s;font-size:.9rem}
+  .topic[open] .caret{transform:rotate(90deg)}
+  .tbody{padding:0 17px 15px}
+  .concepts{display:flex;flex-wrap:wrap;gap:6px;border-top:1px dashed var(--line);padding-top:11px;margin-bottom:6px}
+  .concepts .clbl{font-size:.72rem;font-weight:700;color:var(--mut);margin-right:2px;align-self:center}
+  .concepts span.c{font-size:.74rem;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:3px 8px}
+  /* nível */
+  .level{margin-top:12px}
+  .level .lh{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+  .chip{font-size:.64rem;font-weight:800;letter-spacing:.04em;color:#fff;padding:3px 9px;border-radius:99px}
+  .c-definir{background:var(--definir)} .c-explicar{background:var(--explicar)} .c-aplicar{background:var(--aplicar)}
+  .lh .ld{font-size:.75rem;color:var(--mut)}
+  .obj{display:flex;gap:10px;padding:6px 0 6px 4px;align-items:flex-start}
+  .obj p{margin:0;font-size:.88rem}
+  .obj.checked p{text-decoration:line-through;opacity:.5}
+  .obj .caso{display:inline-block;font-size:.64rem;font-weight:800;color:#fff;background:var(--caso);border-radius:5px;padding:1px 6px;margin-right:5px;vertical-align:middle}
+  input[type=checkbox].cb{appearance:none;-webkit-appearance:none;width:19px;height:19px;border:2px solid var(--line);border-radius:6px;cursor:pointer;position:relative;background:var(--card);flex:none;transition:.15s;margin-top:1px}
+  input[type=checkbox].cb:checked{background:var(--accent);border-color:var(--accent)}
+  input[type=checkbox].cb:checked::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:.8rem;color:var(--mut)}
+  .reset{background:none;border:1px solid var(--line);color:var(--mut);border-radius:8px;padding:6px 11px;font-size:.78rem;cursor:pointer;margin-top:10px}
+  @media(max-width:600px){.topic .tt{flex-basis:100%}.pips{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="../" style="display:inline-block;margin-bottom:12px;font-size:.85rem;color:var(--accent2);text-decoration:none">← 4º Período</a>
+
+  <div class="top">
+    <div>
+      <h1>🧠 Roadmap do Conteúdo — Farmacologia I</h1>
+      <p class="sub"><br>4º Período | Medicina UNIR | T24</p>
+    </div>
+    <button class="theme-btn" id="themeBtn">🌙 Tema</button>
+  </div>
+
+  <div class="intro">
+    Este mapa responde <b>“o que dominar”</b> — a árvore de conteúdo na ordem em que a disciplina apresenta o conteúdo. É o complemento do plano cronológico (que responde <b>“quando estudar”</b>). Cada tópico tem três níveis de maestria: você só domina de verdade quando fecha os três. Marque cada objetivo conforme conseguir cumpri-lo <b>sem olhar o material</b>.
+  </div>
+
+  <div class="prog">
+    <div class="lbl"><span>Maestria (objetivos cumpridos)</span><span id="progTxt">0 / 0</span></div>
+    <div class="bar"><i id="progBar"></i></div>
+  </div>
+
+  <div class="legend">
+    <span><i class="dot" style="background:var(--definir)"></i><b>DEFINIR</b> — sei o que é, defino com minhas palavras</span>
+    <span><i class="dot" style="background:var(--explicar)"></i><b>EXPLICAR</b> — explico o mecanismo, o porquê</span>
+    <span><i class="dot" style="background:var(--aplicar)"></i><b>APLICAR</b> — resolvo casos e questões</span>
+    <span><span class="caso" style="background:var(--caso);color:#fff;font-size:.62rem;font-weight:800;border-radius:5px;padding:1px 6px">🎯</span> caso/questão de prova</span>
+  </div>
+
+  <div id="content"></div>
+
+  <footer>
+    Os três <b>pontinhos</b> no topo de cada tópico acendem quando você fecha aquele nível (definir, explicar, aplicar). Tópico com contorno verde = maestria completa.<br>
+    Conteúdo mapeado dos slides das aulas. O progresso é salvo <b>apenas</b> neste navegador, não tem sincronização!
+    <div><button class="reset" id="resetBtn">↺ Zerar progresso</button></div> <b>
+  </footer>
+
+</div>
+
+<script>
+const MODS=[
+ {num:"01", titulo:"Introdução à Farmacologia", src:"Slide 01", topicos:[
+   {id:"t11", titulo:"Conceitos fundamentais", conc:["Farmacologia","Droga","Fármaco (P.A.)","Medicamento","Remédio"], niveis:[
+     {t:"definir", objs:[
+       {id:"a1",x:"Definir farmacologia: ciência dos efeitos das substâncias químicas sobre os sistemas biológicos, no homem sadio ou doente"},
+       {id:"a2",x:"Diferenciar droga, fármaco (princípio ativo) e medicamento, e situar o que é 'remédio'"}]},
+     {t:"explicar", objs:[
+       {id:"a3",x:"Explicar por que 'todo fármaco é uma droga, mas nem toda droga é um fármaco'"},
+       {id:"a4",x:"Explicar a composição de um medicamento (fármaco + adjuvantes/estabilizantes)"}]},
+     {t:"aplicar", objs:[
+       {id:"a5",x:"Classificar exemplos: canabidiol × maconha; ácido ascórbico × vitamina C"},
+       {id:"a6",caso:1,x:"Enquadrar o caso histórico da Bayer (aspirina × heroína): a mesma origem, efeito benéfico × maléfico"}]}
+   ]},
+   {id:"t12", titulo:"Vias de administração", conc:["Enteral","Parenteral","Oral × Parenteral","Formas farmacêuticas"], niveis:[
+     {t:"definir", objs:[
+       {id:"b1",x:"Definir via de administração e listar as principais (enteral, parenteral, inalatória, tópica, transdérmica, retal)"}]},
+     {t:"explicar", objs:[
+       {id:"b2",x:"Explicar o que determina a escolha da via (propriedades do fármaco + objetivo terapêutico)"},
+       {id:"b3",caso:1,x:"Contrastar vantagens e desvantagens das vias ORAL e PARENTERAL (cai direto na prova)"}]},
+     {t:"aplicar", objs:[
+       {id:"b4",x:"Escolher a via ideal para cenários: início rápido, fármaco instável no TGI, paciente inconsciente"}]}
+   ]}
+ ]},
+ {num:"02", titulo:"Farmacocinética", src:"Slide 02", topicos:[
+   {id:"t20", titulo:"Visão geral — o que é e as 4 fases (ADME)", conc:["Farmacocinética","Absorção","Distribuição","Metabolismo","Excreção"], niveis:[
+     {t:"definir", objs:[
+       {id:"c1",x:"Definir farmacocinética: o caminho da droga no organismo, da administração até a excreção"},
+       {id:"c2",x:"Listar as 4 fases na ordem: Absorção, Distribuição, Metabolismo (biotransformação) e Excreção"}]},
+     {t:"explicar", objs:[
+       {id:"c3",x:"Explicar por que as 4 etapas ocorrem de forma simultânea (a divisão é apenas didática)"}]},
+     {t:"aplicar", objs:[
+       {id:"c4",x:"Justificar por que estudar farmacocinética importa (dose, segurança, resposta do paciente)"}]}
+   ]},
+   {id:"t21", titulo:"Propriedades que influenciam a farmacocinética", conc:["Peso molecular","Conformação","Grau de ionização","Lipossolubilidade"], niveis:[
+     {t:"definir", objs:[
+       {id:"d1",x:"Listar as 4 características: peso molecular, conformação estrutural, grau de ionização e lipossolubilidade"}]},
+     {t:"explicar", objs:[
+       {id:"d2",x:"Explicar por que cada uma influencia o trânsito do fármaco pelas barreiras"}]},
+     {t:"aplicar", objs:[
+       {id:"d3",x:"Prever o comportamento cinético de um fármaco a partir dessas propriedades"}]}
+   ]},
+   {id:"t22", titulo:"Transporte pela membrana e pKa", conc:["Difusão passiva/facilitada","Transporte ativo","Não ionizado → lipossolúvel","pKa"], niveis:[
+     {t:"definir", objs:[
+       {id:"e1",x:"Definir pKa: o pH em que 50% do fármaco está ionizado e 50% não ionizado"},
+       {id:"e2",x:"Relacionar pKa baixo → ácido mais forte; pKa alto → base mais forte"}]},
+     {t:"explicar", objs:[
+       {id:"e3",x:"Explicar por que a forma não ionizada (lipossolúvel) atravessa a membrana melhor que a ionizada (hidrossolúvel)"},
+       {id:"e4",x:"Distinguir difusão passiva, difusão facilitada e transporte ativo"}]},
+     {t:"aplicar", objs:[
+       {id:"e5",x:"Determinar a forma (ionizada ou não) de um fármaco dado seu pKa e o pH do meio"}]}
+   ]},
+   {id:"t23", titulo:"Ionização × pH e retenção iônica", conc:["Urina 4,5–8,0","Ácido/base × meio","Retenção iônica"], niveis:[
+     {t:"definir", objs:[
+       {id:"f1",x:"Enunciar a regra: semelhante com semelhante não ioniza; meios opostos ionizam"}]},
+     {t:"explicar", objs:[
+       {id:"f2",x:"Explicar como o pH da urina (4,5–8,0) muda a ionização e, com isso, a excreção do fármaco"}]},
+     {t:"aplicar", objs:[
+       {id:"f3",caso:1,x:"Caso José Ribamar: por que o AAS (pKa 3) em jejum (estômago pH 2) agride mais o estômago"},
+       {id:"f4",caso:1,x:"Caso da criança: por que se alcaliniza a urina com bicarbonato para excretar o AAS (fármaco ácido)"}]}
+   ]},
+   {id:"t24", titulo:"Absorção — fatores que interferem", conc:["Lipo/hidrossolubilidade","Estabilidade química","Tamanho e carga","Forma farmacêutica","Dissolução"], niveis:[
+     {t:"definir", objs:[
+       {id:"g1",x:"Definir absorção e listar os fatores que a influenciam (solubilidade, estabilidade química, tamanho/peso, carga, forma farmacêutica, dissolução, concentração no local)"}]},
+     {t:"explicar", objs:[
+       {id:"g2",x:"Explicar como lipossolubilidade × hidrossolubilidade mudam o mecanismo de passagem (difusão simples × transportadores)"}]},
+     {t:"aplicar", objs:[
+       {id:"g3",x:"Prever a absorção de um fármaco a partir da forma farmacêutica e das condições do meio"}]}
+   ]},
+   {id:"t25", titulo:"Biodisponibilidade", conc:["Fração inalterada","Primeira passagem","IV = 100%"], niveis:[
+     {t:"definir", objs:[
+       {id:"h1",x:"Definir biodisponibilidade: a fração do fármaco que alcança a circulação sistêmica na forma inalterada"}]},
+     {t:"explicar", objs:[
+       {id:"h2",x:"Explicar o efeito de primeira passagem e por que a via intravenosa tem 100% de biodisponibilidade"}]},
+     {t:"aplicar", objs:[
+       {id:"h3",caso:1,x:"Calcular a biodisponibilidade (100 mg VO, 70 mg absorvidos inalterados → 70%)"}]}
+   ]},
+   {id:"t26", titulo:"Distribuição", conc:["Albumina → ácidos","Glicoproteína α1 → básicos","Só fração livre é ativa","Redistribuição","Barreira hematoencefálica"], niveis:[
+     {t:"definir", objs:[
+       {id:"i1",x:"Definir distribuição e nomear as proteínas carreadoras: albumina (fármacos ácidos) e glicoproteína ácida α1 (básicos)"},
+       {id:"i2",x:"Listar os fatores: fluxo sanguíneo, solubilidade, ligação proteica, débito cardíaco, permeabilidade capilar, volume tecidual"}]},
+     {t:"explicar", objs:[
+       {id:"i3",x:"Explicar por que apenas a fração livre é farmacologicamente ativa"},
+       {id:"i4",x:"Explicar a redistribuição (tiopental: início/término rápidos da anestesia) e a barreira hematoencefálica (quanto mais lipofílico, mais atravessa)"}]},
+     {t:"aplicar", objs:[
+       {id:"i5",caso:1,x:"Caso hipoalbuminemia + fármaco ácido de alta afinidade pela albumina: o que acontece com a fração livre e o efeito?"}]}
+   ]},
+   {id:"t27", titulo:"Metabolismo (biotransformação) — fases e destinos", conc:["Fígado (principal)","Fase I: oxidação/redução/hidrólise","Fase II: conjugação","Pró-fármaco","Primeira passagem"], niveis:[
+     {t:"definir", objs:[
+       {id:"j1",x:"Definir biotransformação e os locais (fígado principal; também rins, pulmões, tecido nervoso)"},
+       {id:"j2",x:"Distinguir fase I (oxidação/redução/hidrólise → metabólito mais polar) e fase II (conjugação com ác. glicurônico, sulfato, glutationa)"}]},
+     {t:"explicar", objs:[
+       {id:"j3",x:"Explicar por que metabolizar é essencial para eliminar (transforma lipofílico em hidrofílico)"},
+       {id:"j4",x:"Explicar os 4 destinos do metabolismo: metabólito inativo, ativo, pró-fármaco e tóxico"},
+       {id:"j5",x:"Explicar o efeito de primeira passagem como requerimento anatômico (drenagem pela veia porta hepática)"}]},
+     {t:"aplicar", objs:[
+       {id:"j6",caso:1,x:"Discriminar reações de fase I × fase II (a hidroxilação NÃO é fase II) e a conjugação mais importante: glicuronidação pela UDP-glicuroniltransferase"},
+       {id:"j7",x:"Localizar as reações: fase I no retículo endoplasmático; fase II no retículo ou citosol; realizadas pelas CYPs (citocromo P450)"}]}
+   ]},
+   {id:"t28", titulo:"Indução, inibição e farmacogenética ⚡", conc:["Indutor × inibidor","CYP450","Metabolizador fraco (MF) / ultrarrápido (MU)","Polimorfismo"], niveis:[
+     {t:"definir", objs:[
+       {id:"k1",x:"Definir indução e inibição enzimática"},
+       {id:"k2",x:"Definir metabolizador fraco (MF) e ultrarrápido (MU) no polimorfismo genético"}]},
+     {t:"explicar", objs:[
+       {id:"k3",x:"Explicar a cadeia da indução: ↑CYP → ↑metabolismo do fármaco B → ↓efeito terapêutico e ↓biodisponibilidade de B"},
+       {id:"k4",x:"Explicar por que MF/MU alteram a resposta a pró-fármacos (bioativação)"}]},
+     {t:"aplicar", objs:[
+       {id:"k5",caso:1,x:"Caso fenitoína + omeprazol (indução): qual o resultado clínico?"},
+       {id:"k6",caso:1,x:"Bioativação: codeína→morfina e tamoxifeno (CYP2D6), clopidogrel (CYP2C19), varfarina (CYP2C9) — prever o efeito no MF/MU"},
+       {id:"k7",x:"Reconhecer indutores (fenobarbital, rifampicina, carbamazepina, fenitoína) × inibidores (cetoconazol, eritromicina, cimetidina, ciprofloxacino)"},
+       {id:"k8",caso:1,x:"Tolerância metabólica: indutor enzimático em uso crônico exige doses MAIORES (metabolização/eliminação mais rápidas)"}]}
+   ]},
+   {id:"t29", titulo:"Excreção / eliminação", conc:["Renal","Biliar","Pulmonar","Polares eliminados melhor"], niveis:[
+     {t:"definir", objs:[
+       {id:"l1",x:"Definir excreção e listar as vias: renal, biliar, pulmonar (e outras: suor, saliva, leite, fezes)"}]},
+     {t:"explicar", objs:[
+       {id:"l2",x:"Explicar por que os órgãos eliminam melhor os compostos polares, e por que lipossolúveis precisam ser metabolizados antes"}]},
+     {t:"aplicar", objs:[
+       {id:"l3",x:"Identificar a via predominante em exemplos (anestésicos gasosos → pulmão; não absorvidos → fezes)"}]}
+   ]},
+   {id:"t210", titulo:"Farmacocinética clínica — os 4 parâmetros", conc:["Biodisponibilidade","Volume de distribuição","Depuração","Meia-vida"], niveis:[
+     {t:"definir", objs:[
+       {id:"m1",x:"Nomear os 4 parâmetros: biodisponibilidade, volume de distribuição, depuração e meia-vida de eliminação"}]},
+     {t:"explicar", objs:[
+       {id:"m2",x:"Explicar o significado clínico de cada um (ex.: a meia-vida define o esquema posológico)"}]},
+     {t:"aplicar", objs:[
+       {id:"m3",x:"Ligar cada parâmetro a uma decisão clínica (ajuste de dose, intervalo entre doses)"}]}
+   ]},
+   {id:"t211", titulo:"Depuração (clearance)", conc:["Volume limpo por tempo","Clearance de creatinina","Nefrotoxicidade"], niveis:[
+     {t:"definir", objs:[
+       {id:"n1",x:"Definir depuração: o volume de líquido biológico totalmente 'limpo' do fármaco por unidade de tempo (mL/min/kg)"}]},
+     {t:"explicar", objs:[
+       {id:"n2",x:"Explicar por que a depuração mede volume, não quantidade; e o papel do clearance de creatinina na avaliação da função renal"}]},
+     {t:"aplicar", objs:[
+       {id:"n3",caso:1,x:"Calcular a depuração renal da cefalexina (4,3 mL/min/kg × 50 kg × 90% → 193,5 mL/min)"},
+       {id:"n4",caso:1,x:"Caso polimixina B: analisar a posologia diante do ClCr reduzido e ajustar/justificar a dose"}]}
+   ]},
+   {id:"t212", titulo:"Volume de distribuição (Vd)", conc:["Volume hipotético","Vd = dose / concentração","Vd alto → tecidos","Tabela de Vd"], niveis:[
+     {t:"definir", objs:[
+       {id:"o1",x:"Definir Vd: o volume hipotético que conteria todo o fármaco do corpo na concentração medida no plasma"}]},
+     {t:"explicar", objs:[
+       {id:"o2",x:"Explicar por que Vd alto = maior atração pelos tecidos e menor concentração plasmática"}]},
+     {t:"aplicar", objs:[
+       {id:"o3",caso:1,x:"Calcular o Vd (100 mg IV, Cmáx 2 mg/L → 50 L)"},
+       {id:"o4",caso:1,x:"Caso digoxina: Vd alto → alta afinidade tecidual"},
+       {id:"o5",x:"Interpretar a tabela de Vd dos fármacos (ex.: AAS < 10 L; propranolol > 200 L)"}]}
+   ]}
+ ]},
+ {num:"03", titulo:"Farmacodinâmica", src:"Slide 03", topicos:[
+   {id:"t30", titulo:"Visão geral e integração FC → FD", conc:["Farmacodinâmica","Mecanismo de ação","Sequência FC→FD","Resposta biológica"], niveis:[
+     {t:"definir", objs:[
+       {id:"p1",x:"Definir farmacodinâmica: o estudo das interações moleculares entre o fármaco e os constituintes do corpo que geram a resposta farmacológica (o que o fármaco faz no corpo)"}]},
+     {t:"explicar", objs:[
+       {id:"p2",x:"Explicar a sequência que produz o efeito: administração → concentração plasmática → interação com o receptor → resposta biológica"}]},
+     {t:"aplicar", objs:[
+       {id:"p3",x:"Justificar por que cada etapa pode ser modulada por fatores fisiológicos, patológicos e genéticos"}]}
+   ]},
+   {id:"t31", titulo:"Interação fármaco-receptor", conc:["Chave-fechadura","Indução conformacional","Kd (afinidade)","Van der Waals / covalente"], niveis:[
+     {t:"definir", objs:[
+       {id:"q1",x:"Listar os requisitos do fármaco para interagir com o receptor: tamanho, carga elétrica, formato e composição atômica apropriados"},
+       {id:"q2",x:"Definir Kd (constante de dissociação): quanto menor o Kd, maior a afinidade do fármaco pelo receptor"}]},
+     {t:"explicar", objs:[
+       {id:"q3",x:"Distinguir os modelos de ligação: chave-fechadura (estrutura complementar) × indução conformacional (o receptor muda de forma ao se ligar ao ligante)"},
+       {id:"q4",x:"Explicar os tipos de ligação química fármaco-receptor: Van der Waals, hidrogênio, iônica e covalente (fármaco 'suicida', praticamente irreversível)"}]},
+     {t:"aplicar", objs:[
+       {id:"q5",caso:1,x:"Relacionar a especificidade do fármaco pelo receptor com o surgimento de efeitos adversos"},
+       {id:"q6",caso:1,x:"Decidir qual fármaco é mais tóxico no câncer: o que altera a síntese de DNA (inespecífico) ou o específico para uma proteína só das células cancerígenas"}]}
+   ]},
+   {id:"t32", titulo:"Fármacos sem receptor e mecanismos de ação", conc:["Ação química direta","Agentes osmóticos","Enzimas / canais","Anticorpos monoclonais"], niveis:[
+     {t:"definir", objs:[
+       {id:"r1",x:"Reconhecer que nem todo fármaco atua por receptor (existe ação independente de receptores)"}]},
+     {t:"explicar", objs:[
+       {id:"r2",x:"Explicar exemplos de ação sem receptor: hidróxidos de alumínio e magnésio (neutralizam o H+ do estômago) e agentes osmóticos (alteram a pressão osmótica)"},
+       {id:"r3",x:"Listar os mecanismos gerais de ação: alterar síntese/liberação/metabolismo de mediadores, atuar sobre enzimas, canais iônicos ou proteínas microbianas, interferir em vias inflamatórias e imunes, e terapias biológicas (anticorpos monoclonais)"}]},
+     {t:"aplicar", objs:[
+       {id:"r4",x:"Classificar um fármaco quanto ao mecanismo: ação por receptor × ação química direta"}]}
+   ]},
+   {id:"t33", titulo:"Tipos de receptores e segundos mensageiros", conc:["Canais iônicos","GPCR","Tirosina-quinase","Intracelular / nuclear","2º mensageiro"], niveis:[
+     {t:"definir", objs:[
+       {id:"s1",x:"Nomear os 4 tipos de receptores: canais iônicos, acoplados à proteína G (GPCR), transmembrana com domínio enzimático (tirosina-quinase) e intracelulares / nucleares"}]},
+     {t:"explicar", objs:[
+       {id:"s2",x:"Explicar os segundos mensageiros: GPCR → AMPc, GMPc, Ca²⁺; tirosina-quinase → dimerização e fosforilação; intracelular → modula a expressão gênica"},
+       {id:"s3",x:"Relacionar o tipo de receptor ao tempo de resposta: milissegundos (canais iônicos) até horas (nucleares, de início lento e efeito prolongado)"}]},
+     {t:"aplicar", objs:[
+       {id:"s4",caso:1,x:"Associar exemplos ao tipo de receptor: lidocaína (canal), adrenalina e morfina (GPCR), insulina e cetuximabe (tirosina-quinase), corticoides e hormônios tireoidianos (intracelular)"},
+       {id:"s5",caso:1,x:"Justificar se a localização e a quantidade de receptores influenciam a resposta terapêutica"}]}
+   ]},
+   {id:"t34", titulo:"Janela e índice terapêutico", conc:["Janela terapêutica","IT = DL50 / DE50","DL50","DE50","Margem de segurança"], niveis:[
+     {t:"definir", objs:[
+       {id:"u1",x:"Definir janela terapêutica (faixa de doses com efeito terapêutico sem toxicidade) e índice terapêutico (IT = DL50 ÷ DE50)"},
+       {id:"u2",x:"Definir DL50 (dose letal em 50% dos indivíduos) e DE50 (dose efetiva em 50%)"}]},
+     {t:"explicar", objs:[
+       {id:"u3",x:"Explicar por que IT alto = fármaco seguro (dose terapêutica distante da tóxica) e IT baixo = perigoso (dose terapêutica próxima da tóxica)"}]},
+     {t:"aplicar", objs:[
+       {id:"u4",caso:1,x:"Comparar digoxina (IT estreito → monitoramento rigoroso) × penicilina (IT amplo → segura)"},
+       {id:"u5",caso:1,x:"Julgar a afirmação: 'como a digoxina tem IT baixo, deve-se aumentar a dose na maioria dos pacientes' (justificar por que é falsa)"},
+       {id:"u6",caso:1,x:"Determinar a janela terapêutica em um gráfico dose-resposta"}]}
+   ]},
+   {id:"t35", titulo:"Dose-resposta: potência × eficácia", conc:["Potência (EC50)","Eficácia (Emáx)","Afinidade / Kd","Quantal × gradual"], niveis:[
+     {t:"definir", objs:[
+       {id:"v1",x:"Definir potência (EC50: concentração que produz 50% da resposta máxima) e eficácia (Emáx: resposta máxima que o fármaco alcança)"}]},
+     {t:"explicar", objs:[
+       {id:"v2",x:"Explicar por que potência NÃO é sinônimo de eficácia (menor EC50 = maior potência; Emáx é o teto do efeito)"},
+       {id:"v3",x:"Relacionar afinidade e dose: quanto maior a afinidade (menor Kd), menor a concentração necessária para o efeito"},
+       {id:"v4",x:"Distinguir a curva quantal (efeito presente ou ausente: dormir / não dormir) × gradual (grandeza escalar: pressão arterial, frequência cardíaca)"}]},
+     {t:"aplicar", objs:[
+       {id:"v5",caso:1,x:"Responder: o fármaco mais potente sempre tem maior eficácia? (justificar — não)"},
+       {id:"v6",x:"Comparar dois fármacos quanto à afinidade a partir do Kd"}]}
+   ]},
+   {id:"t36", titulo:"Agonistas", conc:["Agonista total","Agonista parcial","Agonista inverso"], niveis:[
+     {t:"definir", objs:[
+       {id:"w1",x:"Definir agonista: molécula que se liga ao receptor e o estabiliza na conformação ativa (pode ser fármaco ou ligante endógeno)"}]},
+     {t:"explicar", objs:[
+       {id:"w2",x:"Distinguir agonista total (atinge a eficácia máxima), parcial (resposta submáxima mesmo com todos os receptores ocupados) e inverso (estabiliza a forma inativa, reduzindo a resposta basal)"}]},
+     {t:"aplicar", objs:[
+       {id:"w3",caso:1,x:"Diferenciar agonistas totais e parciais quanto à eficácia e à ocupação de receptores"}]}
+   ]},
+   {id:"t37", titulo:"Antagonistas", conc:["Competitivo","Não competitivo","Alostérico","Sem receptor"], niveis:[
+     {t:"definir", objs:[
+       {id:"x1",x:"Definir antagonista: inibe a ação do agonista, mas não produz efeito próprio na ausência dele"}]},
+     {t:"explicar", objs:[
+       {id:"x2",x:"Distinguir antagonista competitivo (compete pelo receptor, reduz a POTÊNCIA, é reversível com mais agonista e desloca a curva para a direita) × não competitivo (sítio alostérico ou ligação irreversível, reduz a EFICÁCIA / resposta máxima)"},
+       {id:"x3",x:"Explicar o antagonista 'sem receptor': não se liga ao receptor do agonista, mas o neutraliza (ex.: anticorpos, neutralização química ou efeito fisiológico oposto)"}]},
+     {t:"aplicar", objs:[
+       {id:"x4",caso:1,x:"Classificar exemplos: naloxona (competitivo) × aspirina sobre a COX (não competitiva, irreversível)"},
+       {id:"x5",caso:1,x:"Identificar em gráficos se o antagonista é competitivo (curva desloca à direita, Emáx mantido) ou não competitivo (Emáx reduzido)"},
+       {id:"x6",caso:1,x:"Diferenciar agonista inverso × antagonista competitivo (ambos reduzem a atividade na presença do agonista pleno, por mecanismos distintos)"}]}
+   ]},
+   {id:"t38", titulo:"Capacidade de resposta e regulação dos receptores", conc:["Tolerância","Taquifilaxia","Supersensibilidade","Up / down-regulation","Efeito rebote"], niveis:[
+     {t:"definir", objs:[
+       {id:"y1",x:"Definir tolerância (queda gradual da resposta com uso repetido, exigindo aumento da dose) e taquifilaxia / dessensibilização (perda rápida do efeito)"}]},
+     {t:"explicar", objs:[
+       {id:"y2",x:"Distinguir tolerância × taquifilaxia (ex.: descongestionantes nasais, ranitidina) × supersensibilidade (resposta aumentada após suspender o fármaco)"},
+       {id:"y3",x:"Explicar a regulação dos receptores: down-regulation (menos receptores por estímulo crônico) e up-regulation (mais receptores após uso crônico de antagonistas), e como isso gera o efeito rebote na retirada"}]},
+     {t:"aplicar", objs:[
+       {id:"y4",x:"Relacionar um caso de perda de efeito ao mecanismo correto (tolerância, taquifilaxia ou down-regulation)"},
+       {id:"y5",caso:1,x:"Discutir a importância de conhecer a farmacodinâmica e reconhecer que nem todo fármaco tem o mecanismo plenamente esclarecido"}]}
+   ]}
+ ]},
+ {num:"04", titulo:"Colinérgicos e anticolinérgicos", src:"Slide 04", topicos:[
+   {id:"t40", titulo:"SNA e visão da transmissão colinérgica", conc:["Parassimpático → ACh","Simpático → adrenalina","4 classes colinérgicas"], niveis:[
+     {t:"definir", objs:[
+       {id:"40a",x:"Situar o SNA: o parassimpático usa acetilcolina (ACh) como neurotransmissor, o simpático usa adrenalina e noradrenalina"}]},
+     {t:"explicar", objs:[
+       {id:"40b",x:"Explicar a etapa colinérgica: a ACh é liberada e se liga a receptores muscarínicos ou nicotínicos, gerando a resposta"}]},
+     {t:"aplicar", objs:[
+       {id:"40c",x:"Reconhecer as 4 classes que atuam no sistema colinérgico: agonistas diretos, anticolinesterásicos (indiretos), antagonistas muscarínicos e bloqueadores neuromusculares"}]}
+   ]},
+   {id:"t41", titulo:"Síntese, liberação e efeitos da ACh", conc:["Colina acetiltransferase","Antiportador ACh-H+","Efeitos no SNP","Cognição"], niveis:[
+     {t:"definir", objs:[
+       {id:"41a",x:"Descrever a síntese da ACh: a colina acetiltransferase combina colina + acetil-CoA; a ACh é estocada em vesículas por um antiportador ACh-H+"}]},
+     {t:"explicar", objs:[
+       {id:"41b",x:"Explicar a liberação: a despolarização abre canais de Ca²⁺, o Ca²⁺ favorece a fusão vesicular e a ACh é liberada em 'quanta'"},
+       {id:"41c",x:"Explicar os efeitos da ACh no SNP: ↓frequência e débito cardíaco, vasodilatação (↓PA), ↑secreções e motilidade GI, ↑tônus urinário, broncoconstrição e miose"}]},
+     {t:"aplicar", objs:[
+       {id:"41d",x:"Relacionar o papel central da ACh (memória, atenção, sono-vigília) ao uso de colinérgicos na cognição"}]}
+   ]},
+   {id:"t42", titulo:"Receptores colinérgicos", conc:["Muscarínicos M1–M5 (GPCR)","Nicotínicos Nm/Nn (canal)","IP3/DAG × K⁺"], niveis:[
+     {t:"definir", objs:[
+       {id:"42a",x:"Distinguir os dois tipos: muscarínicos (GPCR, subtipos M1 a M5) e nicotínicos (canais iônicos por ligante, Nm muscular e Nn neuronal)"}]},
+     {t:"explicar", objs:[
+       {id:"42b",x:"Explicar a sinalização muscarínica: M1/M3/M5 ativam a fosfolipase C (IP3 e DAG); M2/M4 inibem a adenilato ciclase e ativam canais de K⁺"}]},
+     {t:"aplicar", objs:[
+       {id:"42c",x:"Localizar os nicotínicos: Nm na junção neuromuscular; Nn nos gânglios autônomos, medula suprarrenal e SNC"}]}
+   ]},
+   {id:"t43", titulo:"Agonistas muscarínicos (diretos)", conc:["Ésteres de colina","Pilocarpina","Betanecol","Cevimelina"], niveis:[
+     {t:"definir", objs:[
+       {id:"43a",x:"Classificar em ésteres de colina (acetilcolina, metacolina, carbacol, betanecol) e alcaloides (muscarina, pilocarpina)"}]},
+     {t:"explicar", objs:[
+       {id:"43b",x:"Explicar por que os ésteres de colina têm baixa absorção oral e pouca penetração no SNC"}]},
+     {t:"aplicar", objs:[
+       {id:"43c",caso:1,x:"Associar cada agonista ao uso: metacolina (teste de hiperreatividade brônquica), carbacol/pilocarpina (glaucoma), betanecol (motilidade GI e urinária), pilocarpina/cevimelina (xerostomia)"},
+       {id:"43d",caso:1,x:"Reconhecer contraindicações (asma, DPOC, obstrução urinária, doença péptica, bradicardia) e tratar a intoxicação com atropina"}]}
+   ]},
+   {id:"t44", titulo:"Antagonistas muscarínicos", conc:["Atropina/escopolamina","Ipratrópio/tiotrópio","Pirenzepina (M1)","Efeitos anticolinérgicos"], niveis:[
+     {t:"definir", objs:[
+       {id:"44a",x:"Classificar: naturais (atropina, escopolamina), semissintéticos (ipratrópio, tiotrópio — não cruzam a barreira hematoencefálica) e sintéticos (pirenzepina, seletiva M1)"}]},
+     {t:"explicar", objs:[
+       {id:"44b",x:"Explicar o mecanismo (competem com a ACh pelo receptor) e os efeitos: ↑FC, midríase, broncodilatação, antiespasmódico GI, ↓sudorese e secreções"}]},
+     {t:"aplicar", objs:[
+       {id:"44c",caso:1,x:"Associar ao uso: ipratrópio (DPOC), oxibutinina/tróspio (bexiga hiperativa), atropina/hiosciamina/escopolamina (motilidade GI), biperideno (efeitos extrapiramidais de antipsicóticos)"},
+       {id:"44d",x:"Reconhecer os efeitos adversos anticolinérgicos: boca seca, constipação, visão turva, dispepsia e prejuízo cognitivo"}]}
+   ]},
+   {id:"t45", titulo:"Anticolinesterásicos (agonistas indiretos)", conc:["Inibem a AChE","Neostigmina","Organofosforados","Pralidoxima"], niveis:[
+     {t:"definir", objs:[
+       {id:"45a",x:"Definir anticolinesterásico: inibe a acetilcolinesterase (AChE), deixando a ACh mais tempo na fenda sináptica (agonista indireto)"}]},
+     {t:"explicar", objs:[
+       {id:"45b",x:"Distinguir os tipos: reversíveis (edrofônio, tacrina), carbamoilantes de hidrólise lenta (fisostigmina, neostigmina) e organofosforados (ligação irreversível)"},
+       {id:"45c",x:"Explicar a pralidoxima como reativador da AChE inibida por organofosforado"}]},
+     {t:"aplicar", objs:[
+       {id:"45d",caso:1,x:"Associar ao uso: fisostigmina (glaucoma), neostigmina (acalasia/atonia GI), rivastigmina e tacrina (demência de Alzheimer)"}]}
+   ]},
+   {id:"t46", titulo:"Intoxicação por organofosforados", conc:["Pesticidas","Insuficiência respiratória","Atropina + pralidoxima"], niveis:[
+     {t:"definir", objs:[
+       {id:"46a",x:"Reconhecer a intoxicação por organofosforados (pesticidas): responde por até 80% das internações por pesticida"}]},
+     {t:"explicar", objs:[
+       {id:"46b",x:"Explicar por que a causa primária de morte é a insuficiência respiratória, com componente cardiovascular secundário"}]},
+     {t:"aplicar", objs:[
+       {id:"46c",caso:1,x:"Conduzir o tratamento: atropina (bloqueia a superestimulação muscarínica) + pralidoxima (reativa a AChE)"}]}
+   ]},
+   {id:"t47", titulo:"Bloqueadores neuromusculares", conc:["Despolarizantes","Não despolarizantes","Rocurônio/vecurônio","Toxina botulínica"], niveis:[
+     {t:"definir", objs:[
+       {id:"47a",x:"Distinguir despolarizantes (despolarização → paralisia flácida, resistentes à AChE) e não despolarizantes/competitivos (antagonistas competitivos da ACh: tubocurarina, atracúrio, vecurônio, rocurônio)"}]},
+     {t:"explicar", objs:[
+       {id:"47b",x:"Explicar a ação ganglionar: a tubocurarina causa queda de PA e taquicardia; atracúrio, vecurônio e rocurônio são mais seletivos"}]},
+     {t:"aplicar", objs:[
+       {id:"47c",x:"Reconhecer os usos: adjuvante da anestesia cirúrgica (menos anestésico, menos depressão cardiorrespiratória), controle de espasmos e toxina botulínica"}]}
+   ]}
+ ]},
+ {num:"05", titulo:"Adrenérgicos e antiadrenérgicos", src:"Slide 05", topicos:[
+   {id:"t50", titulo:"Transmissão adrenérgica e catecolaminas", conc:["NE / EPI / dopamina","Grupo catecol","MAO e COMT","Recaptação"], niveis:[
+     {t:"definir", objs:[
+       {id:"50a",x:"Identificar os transmissores adrenérgicos: noradrenalina (principal do simpático), adrenalina (hormônio da suprarrenal) e dopamina — as três são catecolaminas (grupo catecol + amina)"}]},
+     {t:"explicar", objs:[
+       {id:"50b",x:"Explicar a finalização da neurotransmissão: recaptação para o terminal nervoso + metabolização pela MAO e pela COMT"},
+       {id:"50c",x:"Explicar por que as catecolaminas não são eficazes por via oral (inativação rápida na mucosa intestinal e no fígado)"}]},
+     {t:"aplicar", objs:[
+       {id:"50d",x:"Prever o efeito da ação indireta: bloquear a recaptação ou inibir MAO/COMT aumenta a noradrenalina disponível"}]}
+   ]},
+   {id:"t51", titulo:"Adrenoceptores e seus efeitos", conc:["α1","α2","β1","β2"], niveis:[
+     {t:"definir", objs:[
+       {id:"51a",x:"Nomear os 4 adrenoceptores (α1, α2, β1, β2) e o efeito-chave de cada: α1 vasoconstrição, α2 inibe a liberação de NE, β1 estímulo cardíaco, β2 vasodilatação/broncodilatação"}]},
+     {t:"explicar", objs:[
+       {id:"51b",x:"Detalhar α1 (↑resistência periférica e PA, midríase, fechamento do esfíncter da bexiga) e α2 (↓liberação de NE/ACh/insulina, ↑lipólise e renina)"},
+       {id:"51c",x:"Detalhar β1 (taquicardia, ↑contratilidade, ↑renina) e β2 (vasodilatação, broncodilatação, glicogenólise, relaxamento uterino)"}]},
+     {t:"aplicar", objs:[
+       {id:"51d",caso:1,x:"Prever a resposta de um órgão a partir do receptor predominante (brônquio β2 → dilata; vaso α1 → contrai)"}]}
+   ]},
+   {id:"t52", titulo:"Catecolaminas endógenas", conc:["Epinefrina (α e β)","Norepinefrina (α1, β1)","Dopamina (D1 renal, β1)"], niveis:[
+     {t:"definir", objs:[
+       {id:"52a",x:"Comparar os alvos: adrenalina (α e β), noradrenalina (α1 e β1, pouca β2) e dopamina (D1 renal em dose baixa, β1 em dose alta)"}]},
+     {t:"explicar", objs:[
+       {id:"52b",x:"Explicar os efeitos cardiovasculares: adrenalina (inotrópico/cronotrópico +, vasoconstrição α e vasodilatação β2), noradrenalina (↑resistência e PA com ↓FC reflexa vagal)"}]},
+     {t:"aplicar", objs:[
+       {id:"52c",caso:1,x:"Associar aos usos: adrenalina (anafilaxia, parada cardíaca, prolongar anestésico local), noradrenalina (manter PA em UTI/choque), dopamina (IC congestiva, choque cardiogênico/séptico)"}]}
+   ]},
+   {id:"t53", titulo:"Agonistas β-adrenérgicos", conc:["Isoproterenol","Dobutamina","SABA (salbutamol)","LABA (salmeterol)"], niveis:[
+     {t:"definir", objs:[
+       {id:"53a",x:"Diferenciar agonistas β não seletivos (isoproterenol, dobutamina) dos β2-seletivos usados em asma/DPOC"}]},
+     {t:"explicar", objs:[
+       {id:"53b",x:"Explicar isoproterenol (β não seletivo, estimula a FC na bradicardia/bloqueio) e dobutamina (inotrópico, descompensação cardíaca)"},
+       {id:"53c",x:"Distinguir β2 de ação curta (SABA: salbutamol, terbutalina — alívio do broncoespasmo) e longa (LABA: salmeterol, formoterol, indacaterol — controle do DPOC)"}]},
+     {t:"aplicar", objs:[
+       {id:"53d",caso:1,x:"Reconhecer os efeitos adversos dos β2-agonistas (tremor e taquicardia, já que ~40% dos receptores β cardíacos são β2) e a ritodrina como relaxante uterino"}]}
+   ]},
+   {id:"t54", titulo:"Agonistas α-seletivos", conc:["Fenilefrina (α1)","Clonidina/metildopa (α2)","Ação central"], niveis:[
+     {t:"definir", objs:[
+       {id:"54a",x:"Distinguir agonistas α1-seletivos (fenilefrina) e α2-seletivos de ação central (clonidina, metildopa, brimonidina)"}]},
+     {t:"explicar", objs:[
+       {id:"54b",x:"Explicar por que os agonistas α2 centrais REDUZEM a PA (inibem os centros vasomotores simpáticos), ao contrário do efeito vasoconstritor periférico do α1"}]},
+     {t:"aplicar", objs:[
+       {id:"54c",caso:1,x:"Associar ao uso: fenilefrina (descongestionante nasal, vasoconstrição), clonidina/metildopa (hipertensão), brimonidina (hipertensão ocular)"}]}
+   ]},
+   {id:"t55", titulo:"Outros simpaticomiméticos", conc:["Anfetamina","Metilfenidato","Efedrina (ação mista)"], niveis:[
+     {t:"definir", objs:[
+       {id:"55a",x:"Reconhecer os simpaticomiméticos de ação central/mista: anfetamina, metanfetamina, metilfenidato e efedrina"}]},
+     {t:"explicar", objs:[
+       {id:"55b",x:"Explicar o mecanismo da anfetamina (libera NE — alerta — e dopamina — locomoção) e da efedrina (agonista α/β + liberação de NE, ação mista)"}]},
+     {t:"aplicar", objs:[
+       {id:"55c",caso:1,x:"Associar aos usos: anfetamina e metilfenidato (TDAH, narcolepsia), atentando ao alto potencial de dependência da metanfetamina"}]}
+   ]},
+   {id:"t56", titulo:"Antagonistas α-adrenérgicos", conc:["Prazosina (α1)","Tansulosina (HPB)","Fenoxibenzamina/fentolamina","Feocromocitoma"], niveis:[
+     {t:"definir", objs:[
+       {id:"56a",x:"Classificar os antagonistas α: seletivos α1 (prazosina, doxazosina, tansulosina, silodosina) e não seletivos (fenoxibenzamina irreversível, fentolamina competitivo)"}]},
+     {t:"explicar", objs:[
+       {id:"56b",x:"Explicar o bloqueio α1 (↓vasoconstrição → ↓PA) e a resposta reflexa: taquicardia e retenção de líquidos por reflexo barorreceptor"}]},
+     {t:"aplicar", objs:[
+       {id:"56c",caso:1,x:"Associar ao uso: prazosina (HAS, ICC), tansulosina (HPB — relaxa o colo vesical), fenoxibenzamina/fentolamina (feocromocitoma), ioimbina (antagonista α2 → ↑PA e FC)"}]}
+   ]},
+   {id:"t57", titulo:"Antagonistas β (β-bloqueadores)", conc:["Propranolol (não seletivo)","Metoprolol/atenolol (β1)","Carvedilol/labetalol","Terminam em -olol"], niveis:[
+     {t:"definir", objs:[
+       {id:"57a",x:"Classificar por geração: não seletivos (propranolol, nadolol, timolol), β1-seletivos (metoprolol, atenolol, esmolol de ação curta, bisoprolol) e 3ª geração (labetalol, carvedilol — também bloqueiam α1)"}]},
+     {t:"explicar", objs:[
+       {id:"57b",x:"Explicar os efeitos (↓FC e contratilidade, ↓renina → anti-hipertensivo) e os riscos: bloqueio β2 (broncoespasmo em asma/DPOC) e retardo da recuperação da hipoglicemia no DM1"}]},
+     {t:"aplicar", objs:[
+       {id:"57c",caso:1,x:"Reconhecer usos (HAS, angina, síndromes coronarianas, glaucoma, IC com carvedilol) e contraindicações (asma, DPOC, bradicardia sinusal, choque cardiogênico)"}]}
+   ]}
+ ]},
+ {num:"06", titulo:"Antibioticoterapia I — princípios, sulfas e quinolonas", src:"Slide 06", topicos:[
+   {id:"t60", titulo:"Conceitos e alvos dos antibióticos", conc:["Antibiótico","Bacteriostático","Bactericida","Alvo procariótico"], niveis:[
+     {t:"definir", objs:[
+       {id:"60a",x:"Definir antibiótico e distinguir bacteriostático (inibe o crescimento, depende do sistema imune para eliminar) × bactericida (mata a bactéria)"}]},
+     {t:"explicar", objs:[
+       {id:"60b",x:"Explicar por que a seletividade é possível: bactérias são procariotos com alvos exclusivos (parede celular, via do folato, DNA-girase)"}]},
+     {t:"aplicar", objs:[
+       {id:"60c",x:"Relacionar classe e efeito: inibidores da síntese proteica → geralmente bacteriostáticos; inibidores da parede → bactericidas"}]}
+   ]},
+   {id:"t61", titulo:"Resistência bacteriana", conc:["Vertical × horizontal","β-lactamase","Efluxo","Porinas","Alvo alterado"], niveis:[
+     {t:"definir", objs:[
+       {id:"61a",x:"Listar os mecanismos de resistência: acesso reduzido (perda de porinas), bombas de efluxo, enzimas que destroem o fármaco (β-lactamase), alteração do alvo e vias metabólicas alternativas"}]},
+     {t:"explicar", objs:[
+       {id:"61b",x:"Explicar as origens genéticas: mutações transmitidas às células-filhas (vertical) × aquisição de material genético de outras bactérias (horizontal — a mais comum)"}]},
+     {t:"aplicar", objs:[
+       {id:"61c",caso:1,x:"Identificar, num caso, o mecanismo de resistência provável (ex.: superprodução de PABA ou alteração do alvo)"}]}
+   ]},
+   {id:"t62", titulo:"Seleção e tipos de terapia", conc:["CIM","Espectro","Empírica × definitiva"], niveis:[
+     {t:"definir", objs:[
+       {id:"62a",x:"Definir CIM (concentração inibitória mínima) e espectro de ação como base da seleção do antibacteriano"}]},
+     {t:"explicar", objs:[
+       {id:"62b",x:"Distinguir os tipos de terapia: profilática (antes da infecção), preventiva (infecção assintomática confirmada), empírica (sintomas sem confirmação) e definitiva (patógeno identificado)"}]},
+     {t:"aplicar", objs:[
+       {id:"62c",caso:1,x:"Decidir quando iniciar terapia empírica imediata (imunocomprometido, idoso, sepse/meningite) e por que a definitiva (monoterapia dirigida) reduz toxicidade e resistência"}]}
+   ]},
+   {id:"t63", titulo:"Sulfonamidas: mecanismo", conc:["Análogos do PABA","Diidropteroato sintase","Via do folato","Bacteriostático"], niveis:[
+     {t:"definir", objs:[
+       {id:"63a",x:"Definir o mecanismo das sulfas: análogos do PABA que inibem a diidropteroato sintase, bloqueando a síntese bacteriana de ácido fólico (bacteriostático)"}]},
+     {t:"explicar", objs:[
+       {id:"63b",x:"Explicar a seletividade: as bactérias precisam sintetizar o folato (a partir do PABA), enquanto os mamíferos captam o folato pronto da dieta"}]},
+     {t:"aplicar", objs:[
+       {id:"63c",x:"Prever a consequência do bloqueio do folato: falta de purinas, pirimidinas e aminoácidos → parada do crescimento bacteriano"}]}
+   ]},
+   {id:"t64", titulo:"Sulfas: usos, resistência e toxicidade", conc:["Sulfametoxazol","Sulfadiazina de prata","Kernicterus","Cristalúria"], niveis:[
+     {t:"definir", objs:[
+       {id:"64a",x:"Diferenciar sulfas sistêmicas (sulfametoxazol — ITU e infecção sistêmica) e tópicas (sulfadiazina de prata — queimaduras; sulfacetamida — oftálmica)"}]},
+     {t:"explicar", objs:[
+       {id:"64b",x:"Explicar a resistência às sulfas (superprodução de PABA, mutação da enzima, ↓permeabilidade) e o risco de cristalúria"}]},
+     {t:"aplicar", objs:[
+       {id:"64c",caso:1,x:"Reconhecer o efeito adverso grave: kernicterus no recém-nascido, porque a sulfa desloca a bilirrubina da albumina (evitar em RN e gestante a termo)"}]}
+   ]},
+   {id:"t65", titulo:"Sulfametoxazol-trimetoprima", conc:["Trimetoprima","Diidrofolato redutase","Bloqueio sequencial","Sinergia"], niveis:[
+     {t:"definir", objs:[
+       {id:"65a",x:"Explicar por que a associação sulfametoxazol + trimetoprima é sinérgica: bloqueiam DUAS etapas seguidas da via do folato (a trimetoprima inibe a diidrofolato redutase)"}]},
+     {t:"explicar", objs:[
+       {id:"65b",x:"Explicar a seletividade da trimetoprima: precisa de ~100 mil× mais fármaco para inibir a diidrofolato redutase humana do que a bacteriana"}]},
+     {t:"aplicar", objs:[
+       {id:"65c",x:"Reconhecer os usos: ITU, exacerbação da bronquite crônica, nocardiose; e pirimetamina + sulfadiazina na toxoplasmose"}]}
+   ]},
+   {id:"t66", titulo:"Quinolonas: mecanismo e resistência", conc:["DNA-girase","Topoisomerase IV","Flúor no C6","Bactericida"], niveis:[
+     {t:"definir", objs:[
+       {id:"66a",x:"Definir o alvo das quinolonas: DNA-girase e topoisomerase IV, impedindo a replicação do DNA bacteriano (bactericida)"}]},
+     {t:"explicar", objs:[
+       {id:"66b",x:"Explicar a seletividade (células humanas não têm DNA-girase) e o ganho das fluoroquinolonas (o flúor no C6 aumenta a penetração tissular)"}]},
+     {t:"aplicar", objs:[
+       {id:"66c",caso:1,x:"Identificar a resistência às quinolonas: mutação na girase/topoisomerase ou efluxo ativo do fármaco"}]}
+   ]},
+   {id:"t67", titulo:"Quinolonas: fármacos e usos", conc:["Ciprofloxacino","Levofloxacino","Moxifloxacino","Respiratório × ITU"], niveis:[
+     {t:"definir", objs:[
+       {id:"67a",x:"Reconhecer as fluoroquinolonas principais (ciprofloxacino, norfloxacino, levofloxacino, moxifloxacino) e seus perfis"}]},
+     {t:"explicar", objs:[
+       {id:"67b",x:"Explicar diferenças-chave: levofloxacino (isômero ativo, forte contra Gram+ e respiratório) e moxifloxacino (anaeróbios, mas NÃO se concentra na urina, então não trata ITU)"}]},
+     {t:"aplicar", objs:[
+       {id:"67c",caso:1,x:"Escolher a fluoroquinolona pelo foco: ITU/prostatite (cipro, norflox, levoflox) × pneumonia (levo, moxi, gemi — as 'respiratórias')"}]}
+   ]},
+   {id:"t68", titulo:"Metronidazol e nitrofurantoína", conc:["Metronidazol (anaeróbios)","Nitrofurantoína (ITU baixa)","Dano ao DNA"], niveis:[
+     {t:"definir", objs:[
+       {id:"68a",x:"Definir metronidazol (anaeróbios e parasitas, interage com o DNA) e nitrofurantoína (ITU baixa, metabólitos reativos que danificam o DNA)"}]},
+     {t:"explicar", objs:[
+       {id:"68b",x:"Explicar por que a nitrofurantoína só serve para o trato urinário (eliminada quase só na urina, onde se concentra) e é contraindicada em pielonefrite e função renal reduzida"}]},
+     {t:"aplicar", objs:[
+       {id:"68c",caso:1,x:"Avaliar a nitrofurantoína numa paciente com TFG de 45 mL/min: inadequada, pois não atinge concentração urinária eficaz e tende a acumular"}]}
+   ]}
+ ]},
+ {num:"07", titulo:"Antibioticoterapia II — β-lactâmicos e agentes de parede/membrana", src:"Slide 07", topicos:[
+   {id:"t70", titulo:"β-lactâmicos: mecanismo", conc:["Anel β-lactâmico","PLP","Peptidoglicano","Gram+ × Gram-"], niveis:[
+     {t:"definir", objs:[
+       {id:"70a",x:"Definir os β-lactâmicos (penicilinas, cefalosporinas, carbapenêmicos, monobactâmicos): compartilham o anel β-lactâmico e inibem a síntese da parede (peptidoglicano) ligando-se às PLP"}]},
+     {t:"explicar", objs:[
+       {id:"70b",x:"Explicar por que penetram mais fácil em Gram+ (peptidoglicano exposto) do que em Gram- (membrana externa/LPS como barreira, dependem de porinas)"}]},
+     {t:"aplicar", objs:[
+       {id:"70c",x:"Listar os mecanismos de resistência aos β-lactâmicos: ↓afinidade das PLP, perda de porinas, efluxo e β-lactamases"}]}
+   ]},
+   {id:"t71", titulo:"Penicilinas naturais", conc:["Penicilina G/V","Benzatina","Penicilinase","Hipersensibilidade"], niveis:[
+     {t:"definir", objs:[
+       {id:"71a",x:"Diferenciar penicilina G (IV) e V (oral, mais estável em meio ácido); ativas contra cocos Gram+, mas hidrolisadas pela penicilinase"}]},
+     {t:"explicar", objs:[
+       {id:"71b",x:"Explicar as formas da penicilina G pela velocidade: potássica/sódica (rápida), procaína (lenta) e benzatina (muito lenta, ~26 dias — sífilis, febre reumática)"}]},
+     {t:"aplicar", objs:[
+       {id:"71c",caso:1,x:"Reconhecer a hipersensibilidade como efeito adverso mais comum (penicilina é a causa mais frequente de alergia a fármacos) e usar penicilina G na faringite estreptocócica/sífilis"}]}
+   ]},
+   {id:"t72", titulo:"Penicilinas semissintéticas", conc:["Oxacilina (MRSA)","Amoxi/ampicilina","Clavulanato","Piperacilina/tazobactam"], niveis:[
+     {t:"definir", objs:[
+       {id:"72a",x:"Classificar: antiestafilocócicas resistentes à β-lactamase (oxacilina, meticilina), aminopenicilinas de amplo espectro (ampicilina, amoxicilina) e anti-pseudomonas (piperacilina)"}]},
+     {t:"explicar", objs:[
+       {id:"72b",x:"Explicar por que as aminopenicilinas têm espectro ampliado (o grupo amino atravessa as porinas) mas NÃO resistem às β-lactamases, daí a associação a inibidores (amox+clavulanato, pipe+tazobactam)"}]},
+     {t:"aplicar", objs:[
+       {id:"72c",caso:1,x:"Associar ao uso: oxacilina (estafilococos, mas MRSA é resistente), amoxicilina (sinusite, otite, respiratório), piperacilina/tazobactam (Gram- graves/hospitalares, Pseudomonas)"}]}
+   ]},
+   {id:"t73", titulo:"Cefalosporinas por geração", conc:["1ª cefazolina","3ª ceftriaxona","4ª cefepima","anti-MRSA ceftarolina"], niveis:[
+     {t:"definir", objs:[
+       {id:"73a",x:"Situar a lógica das gerações: da 1ª à 3ª/4ª cresce a cobertura Gram- e a resistência a β-lactamases e cai a cobertura Gram+ (exceto as anti-MRSA)"}]},
+     {t:"explicar", objs:[
+       {id:"73b",x:"Caracterizar: 1ª (cefazolina, cefalexina — Gram+, profilaxia cirúrgica), 3ª (ceftriaxona, cefotaxima — meningite, gonorreia, PAC), 4ª (cefepima, ceftazidima — Pseudomonas), anti-MRSA (ceftarolina)"}]},
+     {t:"aplicar", objs:[
+       {id:"73c",caso:1,x:"Escolher a geração pelo cenário: cefazolina (profilaxia/pele), ceftriaxona (meningite empírica, gonorreia, Lyme), cefepima (infecção hospitalar por Gram- resistente)"}]}
+   ]},
+   {id:"t74", titulo:"Carbapenêmicos e monobactâmicos", conc:["Imipenem+cilastatina","Meropenem","Ertapenem","Aztreonam"], niveis:[
+     {t:"definir", objs:[
+       {id:"74a",x:"Definir carbapenêmicos (imipenem, meropenem, ertapenem — espectro mais amplo dos β-lactâmicos, resistentes à maioria das β-lactamases) e o monobactâmico aztreonam (só Gram-, incluindo Pseudomonas)"}]},
+     {t:"explicar", objs:[
+       {id:"74b",x:"Explicar por que o imipenem é combinado com cilastatina (inibe a dehidropeptidase-1 renal, evitando a degradação e metabólitos nefrotóxicos); o meropenem não precisa"}]},
+     {t:"aplicar", objs:[
+       {id:"74c",caso:1,x:"Reconhecer o aztreonam como opção em alérgicos à penicilina (sem reação cruzada) para Gram-/Pseudomonas"}]}
+   ]},
+   {id:"t75", titulo:"β-lactamases e inibidores", conc:["ESBL/KPC (A)","MBL (B)","AmpC (C)","Clavulanato/avibactam"], niveis:[
+     {t:"definir", objs:[
+       {id:"75a",x:"Reconhecer as classes de β-lactamases: A (ESBL, KPC), B (metalo-β-lactamases/MBL, usam Zn²⁺), C (AmpC) e D (oxacilinases)"}]},
+     {t:"explicar", objs:[
+       {id:"75b",x:"Explicar os inibidores suicidas (clavulanato, sulbactam, tazobactam — cobrem classe A/ESBL, mas não AmpC nem MBL) e o avibactam (não suicida, cobre KPC e AmpC)"}]},
+     {t:"aplicar", objs:[
+       {id:"75c",caso:1,x:"Reconhecer que nenhum inibidor comum cobre as MBL, e que ceftazidima/avibactam é opção para Gram- multirresistente KPC-positivo"}]}
+   ]},
+   {id:"t76", titulo:"Glicopeptídeos e bacitracina (parede)", conc:["Vancomicina","D-ala-D-ala","MRSA","Bacitracina (tópico)"], niveis:[
+     {t:"definir", objs:[
+       {id:"76a",x:"Definir os glicopeptídeos (vancomicina, teicoplanina): ligam-se ao terminal D-alanil-D-alanina dos precursores da parede, inibindo sua síntese em Gram+"}]},
+     {t:"explicar", objs:[
+       {id:"76b",x:"Explicar por que não agem em Gram- (moléculas grandes, não cruzam a membrana externa) e por que causam nefrotoxicidade dose-dependente"}]},
+     {t:"aplicar", objs:[
+       {id:"76c",caso:1,x:"Reconhecer a vancomicina como base para MRSA, estreptococo resistente à penicilina e enterococo; a bacitracina fica restrita ao uso tópico"}]}
+   ]},
+   {id:"t77", titulo:"Polimixinas e daptomicina (membrana)", conc:["Polimixina B/colistina","Detergente catiônico","Daptomicina","Nefro/neurotoxicidade"], niveis:[
+     {t:"definir", objs:[
+       {id:"77a",x:"Definir os agentes de membrana: polimixinas (polimixina B, colistina — detergentes catiônicos que desorganizam a membrana de Gram-) e daptomicina (despolariza a membrana de Gram+, bactericida)"}]},
+     {t:"explicar", objs:[
+       {id:"77b",x:"Explicar o espectro oposto: polimixinas restritas a Gram- (aeróbios), daptomicina a Gram+ (pele complicada, endocardite); ambas com toxicidade relevante (polimixinas: nefro e neurotoxicidade)"}]},
+     {t:"aplicar", objs:[
+       {id:"77c",caso:1,x:"Reservar as polimixinas para Gram- multirresistentes sem outra opção, monitorando a função renal"}]}
+   ]}
+ ]},
+ {num:"08", titulo:"Antibioticoterapia III — inibidores da síntese proteica", src:"Slide 08", topicos:[
+   {id:"t80", titulo:"Ribossomo e panorama das classes", conc:["Bacteriano 70S (30S+50S)","Humano 80S","Alvo 30S × 50S"], niveis:[
+     {t:"definir", objs:[
+       {id:"80a",x:"Explicar a base da seletividade: o ribossomo bacteriano é 70S (subunidades 30S e 50S), diferente do humano (80S)"}]},
+     {t:"explicar", objs:[
+       {id:"80b",x:"Organizar as classes pelo alvo: 30S (aminoglicosídeos, tetraciclinas) e 50S (macrolídeos, cloranfenicol, clindamicina, linezolida, estreptograminas)"}]},
+     {t:"aplicar", objs:[
+       {id:"80c",x:"Prever o efeito geral: a maioria é bacteriostática, exceto os aminoglicosídeos (bactericidas)"}]}
+   ]},
+   {id:"t81", titulo:"Tetraciclinas e glicilciclinas", conc:["30S","Doxiciclina","Tigeciclina","Riquétsias/clamídia"], niveis:[
+     {t:"definir", objs:[
+       {id:"81a",x:"Definir o mecanismo: ligam-se ao 30S e impedem o acesso do aminoacil-tRNA ao ribossomo (bacteriostático); a tigeciclina cobre cepas resistentes à tetraciclina"}]},
+     {t:"explicar", objs:[
+       {id:"81b",x:"Reconhecer o uso: doxiciclina é escolha para riquétsias (febre maculosa), micoplasma, clamídia e ISTs; tigeciclina para infecções complicadas de pele e intra-abdominais"}]},
+     {t:"aplicar", objs:[
+       {id:"81c",caso:1,x:"Indicar a doxiciclina na pneumonia atípica (micoplasma/clamídia), na leptospirose e no antraz"}]}
+   ]},
+   {id:"t82", titulo:"Tetraciclinas: adversos e interações", conc:["Quelação (Ca/Mg/Al)","Dentes e osso","Gestante/criança"], niveis:[
+     {t:"definir", objs:[
+       {id:"82a",x:"Reconhecer que as tetraciclinas quelam cátions di/trivalentes: não tomar com laticínios, antiácidos ou suplementos (reduz a absorção)"}]},
+     {t:"explicar", objs:[
+       {id:"82b",x:"Explicar a contraindicação em gestantes e crianças pequenas: ligam-se ao cálcio da dentina/osso, causando coloração permanente dos dentes e depressão do crescimento ósseo"}]},
+     {t:"aplicar", objs:[
+       {id:"82c",caso:1,x:"Explicar por que a doxiciclina falha quando o paciente toma o comprimido com iogurte (quelação pelo cálcio)"}]}
+   ]},
+   {id:"t83", titulo:"Cloranfenicol", conc:["50S / ligação peptídica","Anemia aplásica","Bebê cinza","Inibe CYP"], niveis:[
+     {t:"definir", objs:[
+       {id:"83a",x:"Definir o cloranfenicol: liga-se ao 50S e inibe a formação da ligação peptídica; amplo espectro, mas reservado por toxicidade"}]},
+     {t:"explicar", objs:[
+       {id:"83b",x:"Explicar a toxicidade grave: discrasias sanguíneas e anemia aplásica (age também na mitocôndria — ribossomo 70S) e a síndrome do bebê cinza no recém-nascido"}]},
+     {t:"aplicar", objs:[
+       {id:"83c",caso:1,x:"Reservar o cloranfenicol a infecções graves (meningite, riquétsias) em alérgicos, atentando à inibição das CYP (interações)"}]}
+   ]},
+   {id:"t84", titulo:"Macrolídeos", conc:["Eritro/claritro/azitromicina","50S / translocação","Respiratório","H. pylori"], niveis:[
+     {t:"definir", objs:[
+       {id:"84a",x:"Definir os macrolídeos (eritromicina, claritromicina, azitromicina): ligam-se ao 50S e impedem a translocação do tRNA (bacteriostáticos)"}]},
+     {t:"explicar", objs:[
+       {id:"84b",x:"Reconhecer o uso: infecções respiratórias/PAC e atípicos; alternativa em alérgicos à penicilina; claritromicina no esquema do H. pylori (com omeprazol e amoxicilina)"}]},
+     {t:"aplicar", objs:[
+       {id:"84c",caso:1,x:"Julgar a azitromicina numa infecção provavelmente viral (não indicada) e reconhecer os adversos (GI, hepatite, ototoxicidade em dose alta)"}]}
+   ]},
+   {id:"t85", titulo:"Clindamicina, estreptograminas e linezolida", conc:["Clindamicina (anaeróbios)","Quinupristina/dalfopristina","Linezolida (VRE/MRSA)","Mielossupressão"], niveis:[
+     {t:"definir", objs:[
+       {id:"85a",x:"Diferenciar clindamicina (50S; pele/tecidos moles e anaeróbios pulmonares), estreptograminas (quinupristina/dalfopristina, sinérgicas bactericidas) e oxazolidinonas (linezolida)"}]},
+     {t:"explicar", objs:[
+       {id:"85b",x:"Reconhecer o nicho: estreptograminas e linezolida cobrem Gram+ multirresistentes (enterococo resistente à vancomicina — VRE; MRSA); a linezolida pode causar mielossupressão"}]},
+     {t:"aplicar", objs:[
+       {id:"85c",caso:1,x:"Escolher linezolida para MRSA (inclusive com insuficiência renal, pois não é nefrotóxica) e clindamicina para pele em alérgico a β-lactâmico"}]}
+   ]},
+   {id:"t86", titulo:"Aminoglicosídeos: mecanismo", conc:["30S / erro de leitura","Bactericida conc.-dependente","Efeito pós-antibiótico","Gram- aeróbios"], niveis:[
+     {t:"definir", objs:[
+       {id:"86a",x:"Definir os aminoglicosídeos (gentamicina, amicacina, tobramicina, estreptomicina): ligam-se ao 30S causando erro de leitura e terminação precoce (bactericidas)"}]},
+     {t:"explicar", objs:[
+       {id:"86b",x:"Explicar a morte concentração-dependente e o efeito pós-antibiótico (seguem inibindo após a concentração cair abaixo da CIM), o que justifica a dose única diária alta"}]},
+     {t:"aplicar", objs:[
+       {id:"86c",x:"Reconhecer o espectro (Gram- aeróbios, pouca ação em Gram+) e a baixa absorção oral (cátions polares → uso parenteral)"}]}
+   ]},
+   {id:"t87", titulo:"Aminoglicosídeos: usos e toxicidade", conc:["Nefro + ototoxicidade","Gentamicina (1ª escolha)","Tobramicina (Pseudomonas)","Sinergia com β-lactâmico"], niveis:[
+     {t:"definir", objs:[
+       {id:"87a",x:"Reconhecer as duas toxicidades marcantes: nefrotoxicidade (reversível) e ototoxicidade (pode ser irreversível), pois se concentram no córtex renal e na orelha interna"}]},
+     {t:"explicar", objs:[
+       {id:"87b",x:"Diferenciar: gentamicina (1ª escolha por custo), tobramicina (superior contra Pseudomonas), amicacina (mais amplo, resiste a enzimas), estreptomicina (menos nefrotóxica), neomicina (muito nefrotóxica → só tópica)"}]},
+     {t:"aplicar", objs:[
+       {id:"87c",caso:1,x:"Usar aminoglicosídeo + β-lactâmico na pneumonia nosocomial/sepse por Gram- e ajustar a dose na insuficiência renal"}]}
+   ]}
+ ]},
+ {num:"09", titulo:"Antifúngicos", src:"Slide 09", topicos:[
+   {id:"t90", titulo:"Fungos e alvos dos antifúngicos", conc:["Ergosterol","Parede (β-glicano)","Fungicida × fungistático"], niveis:[
+     {t:"definir", objs:[
+       {id:"90a",x:"Reconhecer os alvos exclusivos dos fungos (eucariotos): o ergosterol da membrana, a via de síntese do ergosterol e o β-1,3-glicano da parede"}]},
+     {t:"explicar", objs:[
+       {id:"90b",x:"Mapear as classes pelo alvo: polienos (ligam o ergosterol), azóis e alilaminas (bloqueiam a síntese do ergosterol), equinocandinas (bloqueiam a parede) e flucitosina (bloqueia o DNA)"}]},
+     {t:"aplicar", objs:[
+       {id:"90c",x:"Distinguir fungicidas (polienos, equinocandinas, alilaminas) de fungistáticos (azóis, flucitosina)"}]}
+   ]},
+   {id:"t91", titulo:"Polienos", conc:["Anfotericina B","Poros na membrana","Nefrotoxicidade","Nistatina (tópica)"], niveis:[
+     {t:"definir", objs:[
+       {id:"91a",x:"Definir a anfotericina B: liga-se ao ergosterol e forma poros na membrana fúngica (fungicida, amplo espectro)"}]},
+     {t:"explicar", objs:[
+       {id:"91b",x:"Explicar a toxicidade: reações à infusão ('tempestade de citocinas' — febre, calafrios, hipotensão) e nefrotoxicidade dose-dependente, reduzida pelas formulações lipídicas/lipossomais"}]},
+     {t:"aplicar", objs:[
+       {id:"91c",caso:1,x:"Reconhecer a anfotericina B como base para micoses graves/sistêmicas e a nistatina como opção só tópica/oral para candidíase"}]}
+   ]},
+   {id:"t92", titulo:"Azóis: mecanismo e interações", conc:["14α-desmetilase (CYP51)","↓Ergosterol","Inibem CYP hepática","Fungistático"], niveis:[
+     {t:"definir", objs:[
+       {id:"92a",x:"Definir o mecanismo dos azóis: inibem a 14α-esterol desmetilase (CYP51), bloqueando a conversão de lanosterol em ergosterol (fungistático)"}]},
+     {t:"explicar", objs:[
+       {id:"92b",x:"Explicar por que os azóis têm tantas interações: também inibem CYP hepáticas (CYP3A4, CYP2C9, CYP2C19)"}]},
+     {t:"aplicar", objs:[
+       {id:"92c",caso:1,x:"Antecipar interações perigosas dos azóis: estatinas (rabdomiólise), anticoagulantes (↑INR), imunossupressores e prolongamento do QTc"}]}
+   ]},
+   {id:"t93", titulo:"Azóis: fármacos e usos", conc:["Fluconazol (LCS)","Itraconazol","Voriconazol (aspergilose)","Posaconazol (profilaxia)"], niveis:[
+     {t:"definir", objs:[
+       {id:"93a",x:"Diferenciar os triazóis: fluconazol (boa penetração no LCS), itraconazol (dimórficos), voriconazol (aspergilose invasiva) e posaconazol (profilaxia)"}]},
+     {t:"explicar", objs:[
+       {id:"93b",x:"Reconhecer o fluconazol como escolha na candidíase e na meningite criptocócica/coccidióidea (penetra no LCS) e o voriconazol como 1ª escolha na aspergilose invasiva"}]},
+     {t:"aplicar", objs:[
+       {id:"93c",caso:1,x:"Escolher o azol pelo cenário e atentar à hepatotoxicidade (itraconazol, voriconazol) e à teratogenicidade (voriconazol — evitar na gravidez)"}]}
+   ]},
+   {id:"t94", titulo:"Equinocandinas", conc:["Caspofungina/micafungina","β-1,3-glicano","Candida","Sem LCS / sem depuração renal"], niveis:[
+     {t:"definir", objs:[
+       {id:"94a",x:"Definir as equinocandinas (caspofungina, micafungina, anidulafungina): inibem a síntese do β-1,3-D-glicano da parede, levando à lise (fungicidas contra Candida)"}]},
+     {t:"explicar", objs:[
+       {id:"94b",x:"Reconhecer o perfil: cobrem Candida e Aspergillus, mas não penetram no LCS e não têm depuração renal (seguras no rim)"}]},
+     {t:"aplicar", objs:[
+       {id:"94c",caso:1,x:"Usar equinocandina na candidíase invasiva e como resgate na aspergilose que não responde ou não tolera anfotericina/voriconazol"}]}
+   ]},
+   {id:"t95", titulo:"Alilaminas, flucitosina e griseofulvina", conc:["Terbinafina (esqualeno epoxidase)","Flucitosina (5-FU)","Griseofulvina (fuso mitótico)"], niveis:[
+     {t:"definir", objs:[
+       {id:"95a",x:"Diferenciar: alilaminas (terbinafina, naftifina — inibem a esqualeno epoxidase), flucitosina (vira 5-FU → inibe a timidilato sintase → bloqueia o DNA) e griseofulvina (rompe o fuso mitótico)"}]},
+     {t:"explicar", objs:[
+       {id:"95b",x:"Reconhecer os nichos: terbinafina é a melhor para dermatofitoses/onicomicose; griseofulvina ainda é escolha na tinea capitis infantil"}]},
+     {t:"aplicar", objs:[
+       {id:"95c",caso:1,x:"Reconhecer que a flucitosina NUNCA é usada isolada (resistência rápida por perda da permease): sempre com anfotericina B na criptococose"}]}
+   ]},
+   {id:"t96", titulo:"Panorama: escolha da terapia", conc:["Fungicida × fungistático","Tópico × sistêmico","Imunossupressão"], niveis:[
+     {t:"definir", objs:[
+       {id:"96a",x:"Sistematizar fungicida (polienos, equinocandinas, alilaminas — eficácia independe do imune) × fungistático (azóis, flucitosina — dependem do sistema imune)"}]},
+     {t:"explicar", objs:[
+       {id:"96b",x:"Definir quando ir de tópico (infecção superficial limitada, imunocompetente) para sistêmico (infecção extensa/profunda, unhas/couro cabeludo, imunossupressão)"}]},
+     {t:"aplicar", objs:[
+       {id:"96c",caso:1,x:"Escolher via e classe pelo caso: onicomicose (terbinafina oral), candidíase vaginal não complicada (azol tópico/dose única), micose invasiva no imunossuprimido (fungicida sistêmico)"}]}
+   ]}
+ ]},
+ {num:"10", titulo:"Antivirais", src:"Slide 10", topicos:[
+   {id:"t100", n:"10.0", titulo:"Por que antivirais são difíceis", conc:["Usam a célula hospedeira","Vírion (capsídio/envelope)","Espectro estreito"], niveis:[
+     {t:"definir", objs:[
+       {id:"100a",x:"Explicar por que há menos antivirais que antibióticos: os vírus se replicam usando a maquinaria da própria célula e são muito heterogêneos (cada fármaco cobre um ou poucos vírus)"}]},
+     {t:"explicar", objs:[
+       {id:"100b",x:"Reconhecer os alvos ao longo do ciclo viral: fixação/entrada, desnudamento, replicação do genoma, integração, maturação e liberação"}]},
+     {t:"aplicar", objs:[
+       {id:"100c",x:"Justificar por que os antibióticos não tratam viroses (agem em alvos bacterianos ausentes nos vírus)"}]}
+   ]},
+   {id:"t101", n:"10.1", titulo:"Entrada e desnudamento", conc:["Maraviroque (CCR5)","Enfuvirtida (gp41)","Adamantanas (M2)"], niveis:[
+     {t:"definir", objs:[
+       {id:"101a",x:"Nomear os inibidores de entrada do HIV: maraviroque (bloqueia o correceptor CCR5) e enfuvirtida/T-20 (impede a fusão mediada pela gp41)"}]},
+     {t:"explicar", objs:[
+       {id:"101b",x:"Explicar o desnudamento: as adamantanas (amantadina, rimantadina) bloqueiam o canal M2 do influenza A, impedindo a acidificação e a liberação do genoma"}]},
+     {t:"aplicar", objs:[
+       {id:"101c",caso:1,x:"Reconhecer que as adamantanas caíram em desuso por resistência quase universal do influenza"}]}
+   ]},
+   {id:"t102", n:"10.2", titulo:"Análogos de nucleosídeos", conc:["Aciclovir (HSV/VZV)","Ganciclovir (CMV)","AZT (HIV)","Fosforilação"], niveis:[
+     {t:"definir", objs:[
+       {id:"102a",x:"Definir os análogos de nucleosídeos: precisam de fosforilação intracelular para virar o trifosfato ativo, que inibe a DNA polimerase/transcriptase reversa"}]},
+     {t:"explicar", objs:[
+       {id:"102b",x:"Explicar a seletividade do aciclovir (HSV/VZV): só a quinase viral o fosforila bem, então ele age apenas nas células infectadas"}]},
+     {t:"aplicar", objs:[
+       {id:"102c",caso:1,x:"Associar: ganciclovir (CMV, mais tóxico → mielossupressão/neutropenia), zidovudina/AZT e lamivudina (transcriptase reversa do HIV; AZT causa mielossupressão)"}]}
+   ]},
+   {id:"t103", n:"10.3", titulo:"Não nucleosídeos, nucleotídeos e foscarnete", conc:["Cidofovir/tenofovir","Foscarnete","INNTR (efavirenz)"], niveis:[
+     {t:"definir", objs:[
+       {id:"103a",x:"Diferenciar análogo nucleotídeo (cidofovir, tenofovir — já fosforilado, ativo contra mutantes sem quinase) do análogo nucleosídeo (precisa de quinase)"}]},
+     {t:"explicar", objs:[
+       {id:"103b",x:"Explicar foscarnete (inibidor não nucleosídeo da polimerase, sem necessidade de ativação — HSV/CMV graves) e os INNTR (efavirenz, nevirapina — inibem a transcriptase reversa diretamente)"}]},
+     {t:"aplicar", objs:[
+       {id:"103c",x:"Reconhecer por que INNTR e lamivudina exigem terapia combinada (resistência rápida em monoterapia)"}]}
+   ]},
+   {id:"t104", n:"10.4", titulo:"Terapia do HIV: integrase, protease e esquema atual", conc:["Dolutegravir (integrase)","Protease (-navir)","DTG + 3TC + TDF"], niveis:[
+     {t:"definir", objs:[
+       {id:"104a",x:"Nomear as classes finais do HIV: inibidores da integrase (dolutegravir, bictegravir, raltegravir) e inibidores da protease (saquinavir, ritonavir — bloqueiam a maturação)"}]},
+     {t:"explicar", objs:[
+       {id:"104b",x:"Explicar por que o dolutegravir é 1ª escolha (alta barreira à resistência) e o efeito adverso dos inibidores de protease (alterações metabólicas/lipodistrofia)"}]},
+     {t:"aplicar", objs:[
+       {id:"104c",caso:1,x:"Reconhecer o esquema atual de dose única diária: dolutegravir + lamivudina + tenofovir"}]}
+   ]},
+   {id:"t105", n:"10.5", titulo:"Influenza: neuraminidase", conc:["Oseltamivir (oral)","Zanamivir (inalado)","Neuraminidase"], niveis:[
+     {t:"definir", objs:[
+       {id:"105a",x:"Definir os inibidores da neuraminidase (oseltamivir oral, zanamivir inalado): bloqueiam a enzima que libera os vírions, contendo o influenza A e B"}]},
+     {t:"explicar", objs:[
+       {id:"105b",x:"Reconhecer o benefício modesto (reduzem ~1 dia de sintomas) e o valor profilático/na influenza grave (H5N1, H1N1)"}]},
+     {t:"aplicar", objs:[
+       {id:"105c",x:"Reconhecer o ganho de iniciar precocemente o oseltamivir"}]}
+   ]},
+   {id:"t106", n:"10.6", titulo:"COVID-19 e Hepatite C", conc:["Remdesivir/Paxlovid","DAAs (sofosbuvir)","NS5B/NS5A","Cura >95%"], niveis:[
+     {t:"definir", objs:[
+       {id:"106a",x:"Reconhecer o arsenal da COVID-19: remdesivir (inibe a RNA polimerase), nirmatrelvir/ritonavir (Paxlovid — inibe a protease 3CL) e molnupiravir (induz erro de replicação)"}]},
+     {t:"explicar", objs:[
+       {id:"106b",x:"Explicar os DAAs da hepatite C: sofosbuvir (inibe a NS5B/polimerase) + inibidores da NS5A (ledipasvir, velpatasvir, daclatasvir), com cura >95%"}]},
+     {t:"aplicar", objs:[
+       {id:"106c",caso:1,x:"Reconhecer que o Paxlovid deve começar até 5 dias do início dos sintomas na COVID-19 ambulatorial de risco"}]}
+   ]},
+   {id:"t107", n:"10.7", titulo:"Resistência viral", conc:["HIV (transcriptase/protease)","HSV (timidina quinase)","Influenza (adamantanos)"], niveis:[
+     {t:"definir", objs:[
+       {id:"107a",x:"Identificar os padrões: HIV (mutações rápidas → terapia combinada obrigatória), HSV/VZV (perda da timidina quinase → resistência ao aciclovir) e influenza (resistência quase universal aos adamantanos)"}]},
+     {t:"explicar", objs:[
+       {id:"107b",x:"Explicar por que a resistência do HSV ao aciclovir é mais comum em imunocomprometidos e como cidofovir/foscarnete contornam (não dependem da quinase viral)"}]},
+     {t:"aplicar", objs:[
+       {id:"107c",x:"Justificar a terapia combinada no HIV como estratégia contra a resistência"}]}
+   ]}
+ ]},
+ {num:"11", titulo:"Farmacologia do TGI", src:"Slide 11", topicos:[
+   {id:"t110", n:"11.0", titulo:"Secreção ácida e defesa da mucosa", conc:["Bomba H+/K+-ATPase","ACh/histamina/gastrina","Prostaglandinas","Muco/bicarbonato"], niveis:[
+     {t:"definir", objs:[
+       {id:"110a",x:"Descrever a secreção ácida: a célula parietal libera H+ pela bomba H+/K+-ATPase, estimulada por acetilcolina (M3), histamina (H2, célula ECL) e gastrina (célula G)"}]},
+     {t:"explicar", objs:[
+       {id:"110b",x:"Explicar a defesa da mucosa: muco, bicarbonato, fluxo sanguíneo e prostaglandinas (PGE2/PGI2, que estimulam o muco e inibem o ácido)"}]},
+     {t:"aplicar", objs:[
+       {id:"110c",x:"Relacionar cada alvo a uma classe: bomba → IBP; H2 → antagonistas H2; neutralização → antiácidos; barreira → sucralfato"}]}
+   ]},
+   {id:"t111", n:"11.1", titulo:"Inibidores da bomba de prótons (IBP)", conc:["Omeprazol","Pró-fármaco ativado em ácido","80-95% supressão","Antes da refeição"], niveis:[
+     {t:"definir", objs:[
+       {id:"111a",x:"Definir os IBP (omeprazol, pantoprazol, esomeprazol): pró-fármacos ativados em meio ácido que bloqueiam a bomba H+/K+-ATPase (80-95% de supressão)"}]},
+     {t:"explicar", objs:[
+       {id:"111b",x:"Explicar por que devem ser tomados antes da 1ª refeição (o alimento ativa as bombas) e os riscos do uso crônico (fraturas, infecções)"}]},
+     {t:"aplicar", objs:[
+       {id:"111c",caso:1,x:"Reconhecer as indicações dos IBP: cicatrização de úlcera, DRGE, erradicação do H. pylori e distúrbios hipersecretores"}]}
+   ]},
+   {id:"t112", n:"11.2", titulo:"Antagonistas H2, sucralfato e antiácidos", conc:["Cimetidina/famotidina","Tolerância em 3 dias","Sucralfato (barreira)","Mg (diarreia) × Al (constipa)"], niveis:[
+     {t:"definir", objs:[
+       {id:"112a",x:"Diferenciar antagonistas H2 (cimetidina, ranitidina, famotidina — competem no H2, ~70%, supressão noturna) e sucralfato (barreira viscosa sobre a úlcera em pH<4)"}]},
+     {t:"explicar", objs:[
+       {id:"112b",x:"Explicar a tolerância rápida (~3 dias) dos antagonistas H2 e o perfil dos antiácidos: CaCO3 (rebote/eructação), Mg(OH)2 (diarreia, rápido), Al(OH)3 (constipação, lento) → combinação Mg+Al"}]},
+     {t:"aplicar", objs:[
+       {id:"112c",x:"Reconhecer o sucralfato como protetor (causa constipação; evitar na insuficiência renal por sobrecarga de alumínio)"}]}
+   ]},
+   {id:"t113", n:"11.3", titulo:"DRGE, úlcera péptica e H. pylori", conc:["IBP 1ª linha","Ácido + H. pylori + AINE","Terapia tripla","COX-2 no alto risco"], niveis:[
+     {t:"definir", objs:[
+       {id:"113a",x:"Definir o desequilíbrio da úlcera péptica: fatores agressores (ácido, pepsina, H. pylori, AINE) × protetores (muco, bicarbonato, prostaglandinas)"}]},
+     {t:"explicar", objs:[
+       {id:"113b",x:"Explicar por que os AINE causam úlcera (suprimem as prostaglandinas protetoras) e por que o IBP é 1ª linha na DRGE e na cicatrização"}]},
+     {t:"aplicar", objs:[
+       {id:"113c",caso:1,x:"Prescrever a terapia tripla do H. pylori (IBP + amoxicilina + claritromicina, 10-14 dias) e proteger com IBP quem usa AINE crônico (ou preferir COX-2 no alto risco)"}]}
+   ]},
+   {id:"t114", n:"11.4", titulo:"Procinéticos e antieméticos", conc:["Metoclopramida (5-HT4/D2)","Domperidona (não cruza BHE)","5-HT3 (quimio)","Anti-H1 (cinetose)"], niveis:[
+     {t:"definir", objs:[
+       {id:"114a",x:"Definir os procinéticos antagonistas de dopamina: metoclopramida (agonista 5-HT4 + antagonista D2/5-HT3) e domperidona (antagonista D2)"}]},
+     {t:"explicar", objs:[
+       {id:"114b",x:"Explicar por que a domperidona causa menos efeitos extrapiramidais (não cruza a barreira hematoencefálica), enquanto a metoclopramida causa distonia/parkinsonismo e galactorreia"}]},
+     {t:"aplicar", objs:[
+       {id:"114c",caso:1,x:"Escolher o antiemético pelo alvo: antagonistas 5-HT3 (náusea da quimioterapia/pós-operatória), antagonistas D2 na zona de gatilho, anti-H1 na cinetose"}]}
+   ]},
+   {id:"t115", n:"11.5", titulo:"Laxantes e diarreia", conc:["Osmóticos (PEG, lactulose)","Emolientes (docusato)","Estimulantes (bisacodil)","Reidratação"], niveis:[
+     {t:"definir", objs:[
+       {id:"115a",x:"Classificar os laxantes: osmóticos (PEG, salinos, lactulose — retêm água), emolientes/umectantes (docusato, óleo mineral) e estimulantes (difenilmetano, antraquinonas)"}]},
+     {t:"explicar", objs:[
+       {id:"115b",x:"Explicar a base do tratamento da constipação (fibras e líquidos primeiro; laxante na menor dose e menor tempo) e da diarreia aguda (reidratação, sobretudo em crianças)"}]},
+     {t:"aplicar", objs:[
+       {id:"115c",x:"Reconhecer causas medicamentosas de constipação e o risco de desidratação na diarreia"}]}
+   ]},
+   {id:"t116", n:"11.6", titulo:"SII e doença inflamatória intestinal (DII)", conc:["SII (espasmolíticos)","Colite ulcerativa × Crohn","Mesalazina","Anti-TNF-α"], niveis:[
+     {t:"definir", objs:[
+       {id:"116a",x:"Diferenciar SII (distúrbio funcional com dor/hipersensibilidade visceral; espasmolíticos anticolinérgicos, eluxadolina) da DII (inflamação crônica: colite ulcerativa × doença de Crohn)"}]},
+     {t:"explicar", objs:[
+       {id:"116b",x:"Explicar o tratamento da DII: atenuar a inflamação com mesalazina, glicocorticoides, imunossupressores e biológicos anti-TNF-α"}]},
+     {t:"aplicar", objs:[
+       {id:"116c",x:"Distinguir colite ulcerativa (mucosa do cólon, contínua) da doença de Crohn (transmural, qualquer segmento, mais na região ileocecal)"}]}
+   ]}
+ ]},
+ {num:"12", titulo:"Farmacologia cardiovascular", src:"Slide 12", topicos:[
+   {id:"t120", n:"12.0", titulo:"Fisiopatologia CV (HAS, IC, angina)", conc:["HAS ≥140/90","SRAA","Simpático","Remodelamento"], niveis:[
+     {t:"definir", objs:[
+       {id:"120a",x:"Definir hipertensão (PA ≥ 140/90 mmHg, doença CV mais comum), insuficiência cardíaca (débito insuficiente) e angina (isquemia por desequilíbrio oferta/demanda de O2)"}]},
+     {t:"explicar", objs:[
+       {id:"120b",x:"Explicar como o eixo renina-angiotensina-aldosterona (SRAA) e o sistema simpático elevam a PA e promovem o remodelamento cardíaco"}]},
+     {t:"aplicar", objs:[
+       {id:"120c",x:"Reconhecer a HAS como fator de risco comum para IC e angina, com fatores de estilo de vida compartilhados (sal, obesidade, tabagismo, sedentarismo)"}]}
+   ]},
+   {id:"t121", n:"12.1", titulo:"Diuréticos", conc:["Alça (furosemida)","Tiazídicos (HCTZ)","Poupadores de K","MRA (espironolactona)"], niveis:[
+     {t:"definir", objs:[
+       {id:"121a",x:"Classificar os diuréticos: de alça (furosemida — inibe Na+K+2Cl-, potente/curto), tiazídicos (HCTZ, clortalidona — inibem Na+Cl- no distal, os mais usados na HAS) e poupadores de K/MRA (amilorida, espironolactona)"}]},
+     {t:"explicar", objs:[
+       {id:"121b",x:"Explicar como reduzem a PA (↓Na+ total → ↓volume extracelular) e o efeito adverso da perda de potássio (alça > tiazídicos)"}]},
+     {t:"aplicar", objs:[
+       {id:"121c",caso:1,x:"Reconhecer o tiazídico como diurético de escolha na HAS e a espironolactona (MRA) como bloqueadora da aldosterona"}]}
+   ]},
+   {id:"t122", n:"12.2", titulo:"Bloqueio do SRAA", conc:["IECA (captopril)","Tosse (bradicinina)","BRA (losartana)","Alisquireno (renina)"], niveis:[
+     {t:"definir", objs:[
+       {id:"122a",x:"Diferenciar os bloqueadores do SRAA: IECA (captopril, enalapril — inibem a ECA), BRA (losartana — bloqueiam o receptor AT1) e alisquireno (inibe a renina)"}]},
+     {t:"explicar", objs:[
+       {id:"122b",x:"Explicar por que os IECA causam tosse (acúmulo de bradicinina) e por que os BRA não (não interferem na bradicinina)"}]},
+     {t:"aplicar", objs:[
+       {id:"122c",caso:1,x:"Trocar o IECA por um BRA no paciente com tosse persistente que atrapalha a adesão"}]}
+   ]},
+   {id:"t123", n:"12.3", titulo:"BCC, β-bloqueadores e outros anti-HAS", conc:["BCC (anlodipino, verapamil)","β-bloqueadores","α1 (prazosina)","Central (metildopa)"], niveis:[
+     {t:"definir", objs:[
+       {id:"123a",x:"Classificar os bloqueadores dos canais de cálcio: di-hidropiridinas (anlodipino — vaso), diltiazem e verapamil (mais cardíacos, úteis em taquiarritmias supraventriculares)"}]},
+     {t:"explicar", objs:[
+       {id:"123b",x:"Explicar os demais anti-hipertensivos: β-bloqueadores (↓débito e renina), α1-antagonistas (prazosina — não em monoterapia), simpatolíticos centrais (metildopa, clonidina) e vasodilatadores diretos (hidralazina, minoxidil, nitroprusseto)"}]},
+     {t:"aplicar", objs:[
+       {id:"123c",caso:1,x:"Explicar o mecanismo pelo qual cada classe baixa a PA (o que a prova cobre: por que BCC, β-bloqueadores, IECA e vasodilatadores reduzem a pressão)"}]}
+   ]},
+   {id:"t124", n:"12.4", titulo:"Estratégia anti-HAS e insuficiência cardíaca", conc:["IECA/BRA + BCC/tiazídico","IC: SRAA+βbloq+MRA+iSGLT2","Sacubitril/valsartana","Inotrópicos"], niveis:[
+     {t:"definir", objs:[
+       {id:"124a",x:"Reconhecer a estratégia anti-hipertensiva: combinação inicial (IECA ou BRA + BCC ou tiazídico), monoterapia no estágio 1 de baixo risco e terapia tripla se não controlar"}]},
+     {t:"explicar", objs:[
+       {id:"124b",x:"Explicar a base da farmacoterapia da IC (atenuar a ativação neuro-hormonal): IECA/BRA ou sacubitril-valsartana + β-bloqueador + MRA + iSGLT2 (dapagliflozina/empagliflozina)"}]},
+     {t:"aplicar", objs:[
+       {id:"124c",caso:1,x:"Reconhecer os inotrópicos (digoxina — inibe a Na+/K+-ATPase; dobutamina — β1; milrinona — inibe a fosfodiesterase 3) como uso restrito na IC grave (aumentam a mortalidade a longo prazo)"}]}
+   ]},
+   {id:"t125", n:"12.5", titulo:"Angina", conc:["Nitratos (NO)","β-bloq e BCC","Ivabradina","Ranolazina"], niveis:[
+     {t:"definir", objs:[
+       {id:"125a",x:"Listar os fármacos da angina: β-bloqueadores, BCC, nitratos (liberam óxido nítrico → vasodilatação), ivabradina (↓FC pela corrente If) e ranolazina (inibe a corrente tardia de Na+)"}]},
+     {t:"explicar", objs:[
+       {id:"125b",x:"Explicar o objetivo comum: reduzir a demanda de O2 do miocárdio ou aumentar a oferta"}]},
+     {t:"aplicar", objs:[
+       {id:"125c",x:"Reconhecer a angina instável como emergência: antiplaquetários (AAS, clopidogrel) + anticoagulante (heparina) + intervenção (angioplastia/stent)"}]}
+   ]},
+   {id:"t126", n:"12.6", titulo:"Antiplaquetários e fibrinolíticos", conc:["AAS (COX-1/TXA2)","Clopidogrel (ADP)","GPIIb/IIIa (abciximab)","Fibrinolíticos (alteplase)"], niveis:[
+     {t:"definir", objs:[
+       {id:"126a",x:"Diferenciar os antiplaquetários pelo alvo: AAS (inibe COX-1 → ↓TXA2, irreversível), clopidogrel/prasugrel (bloqueiam o receptor de ADP) e inibidores da GPIIb/IIIa (abciximab, tirofiban, eptifibatida)"}]},
+     {t:"explicar", objs:[
+       {id:"126b",x:"Explicar por que o efeito do AAS dura 7-10 dias (a plaqueta não sintetiza nova COX) e o papel da GPIIb/IIIa na agregação (pontes de fibrinogênio entre plaquetas)"}]},
+     {t:"aplicar", objs:[
+       {id:"126c",caso:1,x:"Reconhecer os fibrinolíticos (estreptoquinase, alteplase, tenecteplase — convertem plasminogênio em plasmina para dissolver o trombo) no infarto/obstrução aguda"}]}
+   ]},
+   {id:"t127", n:"12.7", titulo:"Anticoagulantes", conc:["Varfarina (vit K)","Heparina (antitrombina)","HBPM","Inibidores diretos de trombina"], niveis:[
+     {t:"definir", objs:[
+       {id:"127a",x:"Classificar os anticoagulantes: varfarina (oral, inibe a regeneração da vitamina K → ↓fatores II, VII, IX, X), heparinas (ativam a antitrombina), inibidores do fator Xa e inibidores diretos da trombina"}]},
+     {t:"explicar", objs:[
+       {id:"127b",x:"Diferenciar a heparina não fracionada (meia-vida curta, reversível por protamina, para instáveis) da HBPM/enoxaparina (meia-vida maior, mais biodisponível, menos trombocitopenia)"}]},
+     {t:"aplicar", objs:[
+       {id:"127c",caso:1,x:"Reconhecer os usos da varfarina (TVP, embolia pulmonar, fibrilação atrial, próteses valvares) e o antídoto da heparina (protamina)"}]}
+   ]},
+   {id:"t128", n:"12.8", titulo:"Dislipidemias", conc:["LDL × HDL","Estatinas (HMG-CoA)","Ezetimiba (NPC1L1)","Fibratos (PPAR)"], niveis:[
+     {t:"definir", objs:[
+       {id:"128a",x:"Reconhecer as lipoproteínas: LDL (leva colesterol aos tecidos, aterogênica) × HDL (leva colesterol ao fígado, protetora); LDL e triglicerídeos altos = risco coronariano"}]},
+     {t:"explicar", objs:[
+       {id:"128b",x:"Explicar as estatinas (inibem a HMG-CoA redutase → ↓síntese de colesterol → ↑receptores de LDL → ↓LDL plasmático; 1ª escolha) e os sequestradores de ácidos biliares (mesmo efeito por outra via)"}]},
+     {t:"aplicar", objs:[
+       {id:"128c",x:"Diferenciar os demais: ezetimiba (inibe a absorção de colesterol pela NPC1L1), fibratos (PPAR → ↓triglicerídeos) e niacina (↓lipólise → ↓VLDL)"}]}
+   ]}
+ ]}
+];
+
+const $=s=>document.querySelector(s);
+const store={get(){try{return JSON.parse(localStorage.getItem('farmaco_conteudo_v1')||'{}')}catch(e){return {}}},
+  set(o){try{localStorage.setItem('farmaco_conteudo_v1',JSON.stringify(o))}catch(e){}}};
+let STATE=store.get();
+const LN={definir:"DEFINIR",explicar:"EXPLICAR",aplicar:"APLICAR"};
+const LD={definir:"sei o que é",explicar:"explico o porquê",aplicar:"resolvo casos"};
+
+function allObjs(){return MODS.flatMap(m=>m.topicos.flatMap(t=>t.niveis.flatMap(n=>n.objs.map(o=>o.id))));}
+
+function levelDone(niv){return niv.objs.every(o=>STATE[o.id]);}
+
+function render(){
+  $('#content').innerHTML=MODS.map(m=>{
+    const tops=m.topicos.map(t=>{
+      const totals=t.niveis.reduce((a,n)=>a+n.objs.length,0);
+      const done=t.niveis.reduce((a,n)=>a+n.objs.filter(o=>STATE[o.id]).length,0);
+      const full=done===totals;
+      const pip=nv=>{const done=t.niveis.find(x=>x.t===nv); const on=done&&levelDone(done); return `<span class="pip ${on?'on-'+nv[0]:''}" title="${LN[nv]}"></span>`;};
+      const levels=t.niveis.map(n=>{
+        const objs=n.objs.map(o=>{
+          const ck=!!STATE[o.id];
+          const caso=o.caso?`<span class="caso">🎯</span>`:'';
+          return `<div class="obj ${ck?'checked':''}"><input type="checkbox" class="cb" data-k="${o.id}" ${ck?'checked':''}><p>${caso}${o.x}</p></div>`;
+        }).join('');
+        return `<div class="level"><div class="lh"><span class="chip c-${n.t}">${LN[n.t]}</span><span class="ld">${LD[n.t]}</span></div>${objs}</div>`;
+      }).join('');
+      const conc=t.conc.map(c=>`<span class="c">${c}</span>`).join('');
+      return `<details class="topic ${full?'full':''}">
+        <summary>
+          <span class="tid">${t.n || t.id.replace('t','').replace(/^(\d)(\d+)$/,'$1.$2')}</span>
+          <span class="tt">${t.titulo}</span>
+          <span class="pips">${pip('definir')}${pip('explicar')}${pip('aplicar')}</span>
+          <span class="tcount">${done}/${totals}</span>
+          <span class="caret">▸</span>
+        </summary>
+        <div class="tbody">
+          <div class="concepts"><span class="clbl">Conceitos-chave:</span>${conc}</div>
+          ${levels}
+        </div>
+      </details>`;
+    }).join('');
+    return `<h2 class="mod"><span class="mnum">MÓDULO ${m.num}</span> ${m.titulo} <span class="src">${m.src}</span></h2>${tops}`;
+  }).join('');
+  updateProg();
+}
+function updateProg(){
+  const all=allObjs(); const done=all.filter(id=>STATE[id]).length;
+  $('#progTxt').textContent=`${done} / ${all.length}`;
+  $('#progBar').style.width=(all.length?done/all.length*100:0)+'%';
+}
+
+document.addEventListener('change',e=>{
+  if(e.target.classList.contains('cb')){
+    const k=e.target.dataset.k;
+    if(e.target.checked) STATE[k]=1; else delete STATE[k];
+    store.set(STATE);
+    // atualizar só o tópico afetado + progresso, sem recolher accordions
+    const det=e.target.closest('details.topic');
+    const obj=e.target.closest('.obj'); if(obj) obj.classList.toggle('checked',e.target.checked);
+    if(det){
+      const boxes=[...det.querySelectorAll('.cb')]; const dn=boxes.filter(b=>b.checked).length;
+      det.querySelector('.tcount').textContent=`${dn}/${boxes.length}`;
+      det.classList.toggle('full',dn===boxes.length);
+      // recompute pips
+      const tid=det.querySelector('.tid').textContent;
+    }
+    updateProg();
+    // pips precisam recomputar por nível: re-render leve dos pips do tópico
+    refreshPips(det);
+  }
+});
+function refreshPips(det){
+  if(!det)return;
+  const groups={definir:[],explicar:[],aplicar:[]};
+  det.querySelectorAll('.level').forEach(l=>{
+    const t=l.querySelector('.chip').textContent.toLowerCase();
+    const boxes=[...l.querySelectorAll('.cb')];
+    groups[t]=boxes;
+  });
+  const pips=det.querySelectorAll('.pip');
+  const order=['definir','explicar','aplicar'];
+  pips.forEach((p,i)=>{
+    const g=groups[order[i]]||[];
+    const on=g.length && g.every(b=>b.checked);
+    p.className='pip'+(on?' on-'+order[i][0]:'');
+  });
+}
+
+$('#resetBtn').addEventListener('click',()=>{if(confirm('Zerar todo o progresso de maestria?')){STATE={};store.set(STATE);render();}});
+
+function applyTheme(x){document.documentElement.setAttribute('data-theme',x);$('#themeBtn').textContent=x==='dark'?'☀️ Tema':'🌙 Tema';}
+let theme=(()=>{try{return localStorage.getItem('farmaco_conteudo_theme')}catch(e){return null}})()||'light';
+applyTheme(theme);
+$('#themeBtn').addEventListener('click',()=>{theme=theme==='dark'?'light':'dark';applyTheme(theme);try{localStorage.setItem('farmaco_conteudo_theme',theme)}catch(e){}});
+
+render();
+</script>
+</body>
+</html>
